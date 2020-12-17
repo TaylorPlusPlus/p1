@@ -15,7 +15,6 @@ namespace PizzaWorld.Testing
             //assert
             Assert.IsType<User>(testUser);
             Assert.NotNull(testUser);
-            Assert.NotSame(user,testUser);
         }
     }
 
