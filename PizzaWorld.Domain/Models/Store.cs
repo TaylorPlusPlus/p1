@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 namespace PizzaWorld.Domain.Models
 {
@@ -6,9 +7,10 @@ namespace PizzaWorld.Domain.Models
     {
         public List<Order> Orders {get; set;}
         
-        void CreateOrder()
+        public void CreateOrder()
         {
             Orders.Add(new Order());
+            
         }
         bool DeleteOrder(Order Order)
         {
@@ -20,5 +22,17 @@ namespace PizzaWorld.Domain.Models
                 return false;
             }
         }
+
+        public void PrintAllOrders()
+        {
+            foreach(Order order in Orders)
+            {
+                Console.WriteLine(order);
+
+            }
+        }
+
+        //Calculate Revenue
+
     }
 }
