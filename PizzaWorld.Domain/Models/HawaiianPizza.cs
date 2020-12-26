@@ -7,7 +7,7 @@ namespace PizzaWorld.Domain.Models
     {
 
         // override the methods 
-        protected override void AddToppings()
+    /*   protected override void AddToppings()
         {
              Toppings = new List<string>{
                 "Ham",
@@ -16,5 +16,6 @@ namespace PizzaWorld.Domain.Models
             
             };
         }
+    */
     }
 }

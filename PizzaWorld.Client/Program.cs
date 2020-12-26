@@ -9,7 +9,8 @@ namespace PizzaWorld.Client
     {
         // must exist at compile time
         private static readonly ClientSingleton _client = ClientSingleton.Instance;
-        private static Store UsersSelectedStore;
+     //   private static Store UsersSelectedStore;
+        private static readonly SqlClient _sql = new SqlClient();
         // is ready as needed when called
         //private readonly ClientSingleton _client2;
         public Program()
@@ -21,12 +22,16 @@ namespace PizzaWorld.Client
         {
             // var p = new Program();
 
-            _client.MakeAStore();
+            //_client.MakeAStore();
+
+            //Loads the clients store list with stores from the context
+            SetSingletonStores();
+            UserExperience userExerience = new UserExperience(_client, _sql);
 
           //p._client2.MakeAStore();
-          PrintAllStores();
+         // PrintAllStores();
         //    Console.WriteLine(_client.SelectStore());
-        UserView();
+     //   UserView();
         }
 
       //  static IEnumerable<Store> GetStores()
@@ -35,11 +40,22 @@ namespace PizzaWorld.Client
        
       //  }
 
+        static void SetSingletonStores()
+        {
+          foreach(Store store in _sql.ReadStores())
+          {
+            _client.Stores.Add(store);
+          }
+        }
+
+
+
+        /*
         static void PrintAllStores()
         {
             foreach(var store in _client.Stores)
             {
-                System.Console.WriteLine(store);
+                System.Console.WriteLine(store.Name);
             }
         }
 
@@ -55,14 +71,14 @@ namespace PizzaWorld.Client
             
             // Seperate this 
             // allows the user to select their current store
-            UserSelectStore();
+            UserSelectStore(user);
             //CHANGED user.SelectedStore = _client.SelectStore();
 
             // Seperate This
             // check if the user has placed an order within the last 24 hours at this selected store
             // check if the user hasn't ordered within 2 hours
             // allows the user to create an order
-            UserCreateOrder();
+            UserCreateOrder(user);
             
             //user.SelectedStore.CreateOrder();
 
@@ -70,7 +86,7 @@ namespace PizzaWorld.Client
             // allows the user to modify their order. Note the order will only be saved to
             // the user 
             //once it is complete
-            UserModifyOrder();
+            UserModifyOrder(user);
 
             //Adds the order to the users list of orders 
             //TODO add functionality to save the users order
@@ -84,20 +100,20 @@ namespace PizzaWorld.Client
             Console.WriteLine(user.ToString());
             
         }
-        static void UserModifyOrder()
+        static void UserModifyOrder(User user)
         {
-          Console.WriteLine("Select a Pizza add to your order:/n1: Meat pizza/n2: Hawaiian pizza/n3: Greek pizza");
+          Console.WriteLine("Select a Pizza add to your order\n1: Meat pizza\n2: Hawaiian pizza\n3: Greek pizza");
           int.TryParse(Console.ReadLine(), out  int input);
 
           if(input == 1){
 
             //I really dont like this.
             // Get most recently created order from the store
-            Order MostRecentOrder = UsersSelectedStore.Orders.Last();
+            Order MostRecentOrder = user.SelectedStore.Orders.Last();
             // add the pizza to the order.
             MostRecentOrder.MakeMeatPizza();
             // update and the stores most recent order .
-            UsersSelectedStore.Orders.Last().Equals(MostRecentOrder);
+            user.SelectedStore.Orders.Last().Equals(MostRecentOrder);
           
             // add this functionallity to its only COMPLETEORDER FUNCTION
             //user.Orders.Add(MostRecentOrder); 
@@ -108,11 +124,11 @@ namespace PizzaWorld.Client
 
             //I really dont like this.
             // Get most recently created order from the store
-            Order MostRecentOrder = UsersSelectedStore.Orders.Last();
+            Order MostRecentOrder = user.SelectedStore.Orders.Last();
             // add the pizza to the order.
             MostRecentOrder.MakeMeatPizza();
             // update and the stores most recent order .
-            UsersSelectedStore.Orders.Last().Equals(MostRecentOrder);
+            user.SelectedStore.Orders.Last().Equals(MostRecentOrder);
           
             // add this functionallity to its only COMPLETEORDER FUNCTION
             //user.Orders.Add(MostRecentOrder); 
@@ -123,11 +139,11 @@ namespace PizzaWorld.Client
 
             //I really dont like this.
             // Get most recently created order from the store
-            Order MostRecentOrder = UsersSelectedStore.Orders.Last();
+            Order MostRecentOrder = user.SelectedStore.Orders.Last();
             // add the pizza to the order.
             MostRecentOrder.MakeMeatPizza();
             // update and the stores most recent order .
-            UsersSelectedStore.Orders.Last().Equals(MostRecentOrder);
+            user.SelectedStore.Orders.Last().Equals(MostRecentOrder);
           
             // add this functionallity to its only COMPLETEORDER FUNCTION
             //user.Orders.Add(MostRecentOrder); 
@@ -140,17 +156,18 @@ namespace PizzaWorld.Client
         }
         static void CompleteOrder(User user)
         {
-          user.Orders.Add(UsersSelectedStore.Orders.Last());
+          user.Orders.Add(user.SelectedStore.Orders.Last());
             //TODO the following function
          // user.SaveOrders();
         }
 
-        static void UserSelectStore()
+        static void UserSelectStore(User user)
         {
-          UsersSelectedStore = _client.SelectStore();
-          Console.WriteLine($"Your current Store is {UsersSelectedStore}");
+          user.SelectedStore = _client.SelectStore();
+
+          Console.WriteLine($"Your current Store is {user.SelectedStore}");
         }
-        static void UserCreateOrder()
+        static void UserCreateOrder(User user)
         {
 
         double TimeSinceOrder = HoursSinceLastOrder();
@@ -158,7 +175,7 @@ namespace PizzaWorld.Client
           //Check if the user placed in order within the last 2 hours
           //Check if the user placed an order with this store within the last 24 hours
           if(TimeSinceOrder > 2 && TimeSinceOrderCurrentStore > 24){
-            UsersSelectedStore.CreateOrder();
+            user.SelectedStore.CreateOrder();
           }else{
             //Inform User why 
             if(TimeSinceOrder < 2 )
@@ -194,6 +211,13 @@ namespace PizzaWorld.Client
         }
 
 
-        
+          /*     static void PrintAllStoresEF()
+        {
+            foreach(var store in _sql.ReadStores())
+            {
+                System.Console.WriteLine(store);
+            }
+        }
+        */
     }
 }

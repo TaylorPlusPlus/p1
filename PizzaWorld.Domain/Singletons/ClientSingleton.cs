@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using PizzaWorld.Domain.Models;
 using System.Linq;
+using PizzaWorld.Domain.Abstracts;
 
 namespace PizzaWorld.Domain.Singletons
 {
@@ -24,18 +25,22 @@ namespace PizzaWorld.Domain.Singletons
         }
         
         public List<Store> Stores { get; set;}
+        public List<APizzaModel> Pizzas{get;set;}
+
         private ClientSingleton()
         {
-           Read();
+          Stores = new List<Store>();
         }
 
         public Store SelectStore()
         {
             Console.WriteLine("Select A Store");
-            int.TryParse(Console.ReadLine(), out  int input);
+            string input = Console.ReadLine();
+            //int.TryParse(Console.ReadLine(), out  string input);
            // Stores.Where(s => s == input);
 
-            return Stores.ElementAtOrDefault(input);
+            return Stores.Find(s => s.Name == input);
+            //return Stores.ElementAtOrDefault(input);
             // All of the following code reduces to return Stores.ElementAt(input)
 /*
             Store store = Stores.ElementAt(input);
@@ -67,6 +72,7 @@ namespace PizzaWorld.Domain.Singletons
             xml.Serialize(file, Stores);
 
         }
+        /*
 
          public void Read()
         {
@@ -79,5 +85,6 @@ namespace PizzaWorld.Domain.Singletons
                 Stores = new List<Store>();
             }
         }
+        */
     }
 }

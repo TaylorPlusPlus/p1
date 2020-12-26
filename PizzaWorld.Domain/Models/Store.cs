@@ -1,12 +1,18 @@
 using System.Collections.Generic;
 using System;
+using PizzaWorld.Domain.Abstracts;
 
 namespace PizzaWorld.Domain.Models
 {
-    public class Store
+    public class Store : AEntity
     {
         public List<Order> Orders {get; set;}
+        public string Name {get; set;}
         
+        public Store()
+        {
+            Orders = new List<Order>();
+        }
         public void CreateOrder()
         {
             Orders.Add(new Order());
@@ -32,6 +38,10 @@ namespace PizzaWorld.Domain.Models
             }
         }
 
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
         //Calculate Revenue
 
     }

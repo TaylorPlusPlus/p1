@@ -2,15 +2,15 @@ using System.Collections.Generic;
 using System;
 namespace PizzaWorld.Domain.Abstracts
 {
-    public abstract class APizzaModel
+    public class APizzaModel : AEntity
     {
 
         // three fields
         public string Crust { get; set;}
         public string Size { get; set;}
-        public List<string> Toppings{get; set;}
+    //    public List<string> Toppings{get; set;}
         // a constructor that calls the three methods to set the fields
-        protected APizzaModel()
+       protected APizzaModel()
         {
             AddCrust();
             AddSize();
