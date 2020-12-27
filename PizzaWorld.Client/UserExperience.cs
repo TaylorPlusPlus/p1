@@ -37,78 +37,51 @@ namespace PizzaWorld.Client
             //User = new User();
           
               User = _sql.ReadOneUser("First");
-           //  User.Orders.Add
-            //User.Orders = _sql.ReadOrders(User) as List<Order>;
-
-          //todo MAKE FILL ORDER FUNCTION
-          //_sql.ReadOrders(User.SelectedStore);
-           foreach(Order order in _sql.ReadOrders(User.SelectedStore) )
-            {
-              //_sql.ReadPizzas(order);
-            } 
-            
-                
-           //   foreach(APizzaModel pizza in _sql.ReadPizzas(order))
-            //  {
-                
-               // foreach(AToppingModel topping in _sql.ReadToppings(pizza))
-               // {
-              //    pizza.Toppings.Add(topping);
-              //  }
-
-             //   order.Pizzas.Add(pizza);
-           //   }
-         //   
-         //     order.Pizzas.Add(new HawaiianPizza());
-            //  Console.WriteLine("Added order " + order.EntityId);
-             // User.Orders.Add(order);
-            
-            // foreach(APizzaModel pizza in _sql.ReadPizzas(User.Orders))
-            //  {
-                
-               // foreach(AToppingModel topping in _sql.ReadToppings(pizza))
-               // {
-              //    pizza.Toppings.Add(topping);
-              //  }
-
-           //  //   order.Pizzas.Add(pizza);
-           //   }
-
-
-          //TODO MAKE FILL PIZZA FUNCTION
-
-
-              //add Pizzas to the orders
-           
-
-            Console.WriteLine("\nUsername in Userview " + User.Username);
-            // list all the stores the user can choose from
+              bool StillInSwitch = true;
+              int UserInput;
+            // list all the stores the user can choose from and allows user to choose a store
             PrintAllStores();
-            
-            // Seperate this 
-            // allows the user to select their current store
             UserSelectStore();
-            //CHANGED user.SelectedStore = _client.SelectStore();
-      //       ListOrderHistory();
-            // Seperate This
-            // check if the user has placed an order within the last 24 hours at this selected store
-            // check if the user hasn't ordered within 2 hours
-            // allows the user to create an order
-         //   UserCreateOrder();
-            
-            //user.SelectedStore.CreateOrder();
 
-            // UserModifyOrder()
-            // allows the user to modify their order. Note the order will only be saved to
-            // the user 
-            //once it is complete
-            UserModifyOrder();
+            while(StillInSwitch)
+            {
+              Console.WriteLine("1.Create or Modify an Order\n" +
+                                "2.Check out\n3.View Order History\n"+
+                                "4.Select a new Store\n5.Exit");
+              UserInput = int.Parse(Console.ReadLine());
+              switch(UserInput)
+              {
+                case 1:
+                UserModifyOrder();
+                break;
+                case 2:
+                  if(CurrentOrder == null)
+                  {
+                    Console.WriteLine("You must first create an order before you can check out");
+                  }else
+                  {
+                  CompleteOrder();
+                  }
+                  break;
+                case 3:
+                  ListOrderHistory();
+                  break;
+                case 4:
+                  PrintAllStores();
+                  UserSelectStore();
+                  break;
+                case 5:
+                  StillInSwitch = false;
+                  break;
+              }
+            }
+            //UserModifyOrder();
 
             //Adds the order to the users list of orders 
             //TODO add functionality to save the users order
-            CompleteOrder();
+            //CompleteOrder();
 
-            ListOrderHistory();
+            //ListOrderHistory();
 
            // Order MostRecentOrder = user.SelectedStore.Orders.Last();
 
@@ -141,47 +114,14 @@ namespace PizzaWorld.Client
 
           if(input == 1){
 
-            CurrentOrder.MakeMeatPizza();
-            // update and the stores most recent order .
-            
-          
-            // add this functionallity to its only COMPLETEORDER FUNCTION
-            //user.Orders.Add(MostRecentOrder); 
-
-              //TODO need to add type checking   
+            CurrentOrder.MakeMeatPizza(); 
           }
-            if(input == 2){
+            if(input == 2)
+            {
                CurrentOrder.MakeHawaiianPizza();
-/*
-             CurrentOrder.MakeHawaiianPizza();
-            //I really dont like this.
-            // Get most recently created order from the store
-            Order MostRecentOrder = User.SelectedStore.Orders.Last();
-            // add the pizza to the order.
-            MostRecentOrder.MakeMeatPizza();
-            // update and the stores most recent order .
-            User.SelectedStore.Orders.Last().Equals(MostRecentOrder);
-          
-            // add this functionallity to its only COMPLETEORDER FUNCTION
-            //user.Orders.Add(MostRecentOrder); 
-
-              //TODO need to add type checking   
-              */
-          }
+            }
           if(input == 3){
-
-            //I really dont like this.
-            // Get most recently created order from the store
-            Order MostRecentOrder = User.SelectedStore.Orders.Last();
-            // add the pizza to the order.
-            MostRecentOrder.MakeMeatPizza();
-            // update and the stores most recent order .
-            User.SelectedStore.Orders.Last().Equals(MostRecentOrder);
-          
-            // add this functionallity to its only COMPLETEORDER FUNCTION
-            //user.Orders.Add(MostRecentOrder); 
-
-              //TODO need to add type checking   
+            CurrentOrder.MakeGreekPizza();
           }
     
         }
@@ -196,7 +136,10 @@ namespace PizzaWorld.Client
 
             //Build the orders as they come
 
-
+             foreach(Order order in _sql.ReadOrders(User) )
+            {
+              //_sql.ReadPizzas(order);
+            } 
 
             Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
            // if(UsersHistory == null)
