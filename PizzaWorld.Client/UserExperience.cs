@@ -211,10 +211,14 @@ namespace PizzaWorld.Client
                    {
 
                      foreach(AToppingModel topping in _sql.ReadToppings(pizza))
-                      { 
+                    { 
                       
+                    }
+                      
+                     foreach(ACrustModel crust in _sql.ReadCrust(pizza))
+                     {
+
                      }
-              
                    }
                    
                     Console.WriteLine(order.ToString());

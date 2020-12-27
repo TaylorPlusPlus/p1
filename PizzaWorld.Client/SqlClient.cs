@@ -54,6 +54,11 @@ namespace PizzaWorld.Client
                 .SelectMany(u => u.Toppings);
                 
         }
+        public IEnumerable<ACrustModel> ReadCrust(APizzaModel pizza)
+        {
+            return _db.Pizzas
+                .Where(u => u.EntityId == pizza.EntityId).Select(u => u.Crust);
+        }
 
         public Store ReadOneStore(string name)
         {
