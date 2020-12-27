@@ -21,7 +21,30 @@ namespace PizzaWorld.Domain.Models
             Pizzas = new List<APizzaModel>();
             //Pizzas = new List<MeatPizza>();
         }
-        
+
+        public override string ToString()
+        {
+            string returnString = "Order number: " + EntityId + "\n";
+            
+            foreach(APizzaModel pizza in Pizzas)
+            {
+                returnString += pizza.ToString() + "\n";
+            }
+
+            return returnString;
+        }
+        /*
+        public void MakePizza(string pizzaType)
+        {
+            Type type = Type.GetType(pizzaType);
+             //requirement: An order can only have 50 pizza's
+            if(Pizzas.Count <= 50)
+            {
+                
+                Pizzas.Add(_pizzaFactory.Make<type>());
+            }
+        }
+            */
 
         /*
         public void MakePizza(string pizzaType)
@@ -45,7 +68,7 @@ namespace PizzaWorld.Domain.Models
             }
             
         }
-/*
+
          public void MakeHawaiianPizza()
         {
             //requirement: An order can only have 50 pizza's
@@ -54,7 +77,7 @@ namespace PizzaWorld.Domain.Models
                 Pizzas.Add(_pizzaFactory.Make<HawaiianPizza>());
             }
         }
-        
+/*        
         public void MakeGreekPizza()
         {
              //requirement: An order can only have 50 pizza's

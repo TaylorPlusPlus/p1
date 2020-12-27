@@ -5,16 +5,16 @@ namespace  PizzaWorld.Domain.Models
 {
     public class MeatPizza : APizzaModel
     {
-      /*  
+        
         protected override void AddToppings()
         {
-            Toppings = new List<string>{
-                "Ham",
-                "Sausage",
-                "Cheese",
-            
+           // Toppings = new List<AToppingModel>();
+           // Toppings.Add()
+           Toppings = new List<AToppingModel>{
+                topping.Make<Sausage>(),
+                topping.Make<Ham>()
             };
         }
-        */
+        
     }
 }

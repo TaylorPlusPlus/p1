@@ -8,8 +8,7 @@ namespace PizzaWorld.Domain.Models
         {
             Toppings = new List<string>{
                 "Olives",
-                "Garlic",
-                "Feta"
+                "Feta",
             };
         }
         */

@@ -1,6 +1,8 @@
+using PizzaWorld.Domain.Abstracts;
 using PizzaWorld.Domain.Models;
 using PizzaWorld.Domain.Singletons;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PizzaWorld.Client
@@ -32,10 +34,54 @@ namespace PizzaWorld.Client
          void UserView()
         {
             // Get the users order history
-            User = new User();
-            User.Username = "First";
+            //User = new User();
+          
+              User = _sql.ReadOneUser("First");
+           //  User.Orders.Add
+            //User.Orders = _sql.ReadOrders(User) as List<Order>;
 
-            Console.WriteLine("Username in Userview " + User.Username);
+          //todo MAKE FILL ORDER FUNCTION
+          //_sql.ReadOrders(User.SelectedStore);
+           foreach(Order order in _sql.ReadOrders(User.SelectedStore) )
+            {
+              //_sql.ReadPizzas(order);
+            } 
+            
+                
+           //   foreach(APizzaModel pizza in _sql.ReadPizzas(order))
+            //  {
+                
+               // foreach(AToppingModel topping in _sql.ReadToppings(pizza))
+               // {
+              //    pizza.Toppings.Add(topping);
+              //  }
+
+             //   order.Pizzas.Add(pizza);
+           //   }
+         //   
+         //     order.Pizzas.Add(new HawaiianPizza());
+            //  Console.WriteLine("Added order " + order.EntityId);
+             // User.Orders.Add(order);
+            
+            // foreach(APizzaModel pizza in _sql.ReadPizzas(User.Orders))
+            //  {
+                
+               // foreach(AToppingModel topping in _sql.ReadToppings(pizza))
+               // {
+              //    pizza.Toppings.Add(topping);
+              //  }
+
+           //  //   order.Pizzas.Add(pizza);
+           //   }
+
+
+          //TODO MAKE FILL PIZZA FUNCTION
+
+
+              //add Pizzas to the orders
+           
+
+            Console.WriteLine("\nUsername in Userview " + User.Username);
             // list all the stores the user can choose from
             PrintAllStores();
             
@@ -43,12 +89,12 @@ namespace PizzaWorld.Client
             // allows the user to select their current store
             UserSelectStore();
             //CHANGED user.SelectedStore = _client.SelectStore();
-
+      //       ListOrderHistory();
             // Seperate This
             // check if the user has placed an order within the last 24 hours at this selected store
             // check if the user hasn't ordered within 2 hours
             // allows the user to create an order
-            UserCreateOrder();
+         //   UserCreateOrder();
             
             //user.SelectedStore.CreateOrder();
 
@@ -61,6 +107,8 @@ namespace PizzaWorld.Client
             //Adds the order to the users list of orders 
             //TODO add functionality to save the users order
             CompleteOrder();
+
+            ListOrderHistory();
 
            // Order MostRecentOrder = user.SelectedStore.Orders.Last();
 
@@ -79,11 +127,11 @@ namespace PizzaWorld.Client
             if(CurrentOrder == null)
             {
                 // checking if user is allowed to make an order
-               if(UserCreateOrder() == false)
-               {
-                   return;
-               }
-                
+             //  if(UserCreateOrder() == false)
+             //  {
+             //      return;
+            //   }
+            //    
                 //the user doesn't have an order and is allowed to make one, thus an order is made
                CurrentOrder = new Order();
             }
@@ -93,13 +141,9 @@ namespace PizzaWorld.Client
 
           if(input == 1){
 
-            //I really dont like this.
-            // Get most recently created order from the store
-            Order MostRecentOrder = User.SelectedStore.Orders.Last();
-            // add the pizza to the order.
-            MostRecentOrder.MakeMeatPizza();
+            CurrentOrder.MakeMeatPizza();
             // update and the stores most recent order .
-            User.SelectedStore.Orders.Last().Equals(MostRecentOrder);
+            
           
             // add this functionallity to its only COMPLETEORDER FUNCTION
             //user.Orders.Add(MostRecentOrder); 
@@ -107,7 +151,9 @@ namespace PizzaWorld.Client
               //TODO need to add type checking   
           }
             if(input == 2){
-
+               CurrentOrder.MakeHawaiianPizza();
+/*
+             CurrentOrder.MakeHawaiianPizza();
             //I really dont like this.
             // Get most recently created order from the store
             Order MostRecentOrder = User.SelectedStore.Orders.Last();
@@ -120,6 +166,7 @@ namespace PizzaWorld.Client
             //user.Orders.Add(MostRecentOrder); 
 
               //TODO need to add type checking   
+              */
           }
           if(input == 3){
 
@@ -138,19 +185,55 @@ namespace PizzaWorld.Client
           }
     
         }
+
+        void ListOrderHistory()
+        {
+            //IEnumerable<Order> UsersHistory = _sql.ReadOrders(User);
+
+            //Add query for Pizza's with ordernumber
+
+            //Add a query for Toppings with PizzaModelEntityId
+
+            //Build the orders as they come
+
+
+
+            Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
+           // if(UsersHistory == null)
+           // {
+           //     Console.WriteLine("You do not have an order history");
+          //      return;
+          //  }else
+            {
+                foreach(Order order in User.Orders)
+                {
+                   foreach(APizzaModel pizza in _sql.ReadPizzas(order))
+                   {
+
+                     foreach(AToppingModel topping in _sql.ReadToppings(pizza))
+                      { 
+                      
+                     }
+              
+                   }
+                   
+                    Console.WriteLine(order.ToString());
+                }
+            }
+        }
         void CompleteOrder()
         {
 
-            User.Orders.Add(CurrentOrder);
-            User.SelectedStore.Orders.Add(CurrentOrder);
+           // User.Orders.Add(CurrentOrder);
+            //User.SelectedStore.Orders.Add(CurrentOrder);
         //    Console.WriteLine("Store : " + User.SelectedStore + " User: " + User.Username + " Order: " + CurrentOrder);
             _sql.SaveOrder(User.SelectedStore, User, CurrentOrder);
-    
+
        
 
         // update the users orders
-          User.Orders.Add(CurrentOrder);
-          User.SelectedStore.Orders.Add(CurrentOrder);
+        //  User.Orders.Add(CurrentOrder);
+        //  User.SelectedStore.Orders.Add(CurrentOrder);
             //TODO the following function
          // user.SaveOrders();
           // resetting the current order
@@ -200,6 +283,7 @@ namespace PizzaWorld.Client
           //TODO check from database or file when this user created their last order at this location
           double HoursSinceLastOrderCurrentLocation = 25;
           return HoursSinceLastOrderCurrentLocation;
+
         }
 
 

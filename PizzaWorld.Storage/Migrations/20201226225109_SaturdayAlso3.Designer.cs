@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaWorld.Storage;
 
 namespace PizzaWorld.Storage.Migrations
 {
     [DbContext(typeof(PizzaWorldContext))]
-    partial class PizzaWorldContextModelSnapshot : ModelSnapshot
+    [Migration("20201226225109_SaturdayAlso3")]
+    partial class SaturdayAlso3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace PizzaWorld.Storage.Migrations
 
                     b.HasIndex("OrderEntityId");
 
-                    b.ToTable("Pizzas");
+                    b.ToTable("APizzaModel");
                 });
 
             modelBuilder.Entity("PizzaWorld.Domain.Abstracts.AToppingModel", b =>
@@ -84,7 +86,7 @@ namespace PizzaWorld.Storage.Migrations
 
                     b.HasIndex("UserEntityId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("PizzaWorld.Domain.Models.Store", b =>

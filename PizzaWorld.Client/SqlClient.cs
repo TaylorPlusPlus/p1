@@ -22,13 +22,49 @@ namespace PizzaWorld.Client
 
         public IEnumerable<Order> ReadOrders(Store store)
         {
-            var s = ReadOneStore(store.Name);
-            return s.Orders;
+           // var s = ReadOneStore(store.Name);
+            //return s.Orders;
+            return  _db.Store
+                .Where(u => u.Name == store.Name)
+                .SelectMany(u => u.Orders);
+        }
+
+        //Test this
+        public IEnumerable<Order> ReadOrders(User user)
+        {    
+            _db.SaveChanges();
+        
+              return  _db.Users
+                .Where(u => u.Username == user.Username)
+                .SelectMany(u => u.Orders);
+            //return _db.Order;
+            
+            //_db.Users.FirstOrDefault(u => u.Username == user.Username).Orders;
+        }
+        public IEnumerable<APizzaModel> ReadPizzas(Order order)
+        {
+            return _db.Order
+                .Where(u => u.EntityId == order.EntityId)
+                .SelectMany(u => u.Pizzas);
+        }
+        public IEnumerable<AToppingModel> ReadToppings(APizzaModel pizza)
+        {
+            return _db.Pizzas
+                .Where(u => u.EntityId == pizza.EntityId)
+                .SelectMany(u => u.Toppings);
+                
         }
 
         public Store ReadOneStore(string name)
         {
             return _db.Store.FirstOrDefault(s => s.Name == name);
+        }
+
+
+        // call this in user experience to set user
+        public User ReadOneUser(string name)
+        {
+            return _db.Users.FirstOrDefault(s => s.Username == name);
         }        
         public void SaveStore(Store store)
         {
@@ -39,7 +75,7 @@ namespace PizzaWorld.Client
         public void SaveOrder(Store store, User user, Order order)
         {
                 //NEED TO MAKE SURE THIS ONLY UPDATES IF IT IS ALREADY IN THE DATABASE!!!!
-                _db.Store.FirstOrDefault(s => s == store).Orders.Add(order);
+                _db.Store.FirstOrDefault(s => s.Name == store.Name).Orders.Add(order);
                 _db.Users.FirstOrDefault(s => s.Username == user.Username).Orders.Add(order);
                 //_db.Store.Find(store).Orders.Add(order);
                // _db.Users.Find(user).Orders.Add(order);
@@ -48,7 +84,7 @@ namespace PizzaWorld.Client
               _db.SaveChanges();
         }
 
-        public void Update(Store store)
+        public void Update()
         {
             _db.SaveChanges();
         }

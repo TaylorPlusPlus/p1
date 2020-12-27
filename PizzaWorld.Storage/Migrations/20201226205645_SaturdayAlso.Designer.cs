@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaWorld.Storage;
 
 namespace PizzaWorld.Storage.Migrations
 {
     [DbContext(typeof(PizzaWorldContext))]
-    partial class PizzaWorldContextModelSnapshot : ModelSnapshot
+    [Migration("20201226205645_SaturdayAlso")]
+    partial class SaturdayAlso
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,30 +41,7 @@ namespace PizzaWorld.Storage.Migrations
 
                     b.HasIndex("OrderEntityId");
 
-                    b.ToTable("Pizzas");
-                });
-
-            modelBuilder.Entity("PizzaWorld.Domain.Abstracts.AToppingModel", b =>
-                {
-                    b.Property<long>("EntityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<long?>("APizzaModelEntityId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Price")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EntityId");
-
-                    b.HasIndex("APizzaModelEntityId");
-
-                    b.ToTable("AToppingModel");
+                    b.ToTable("APizzaModel");
                 });
 
             modelBuilder.Entity("PizzaWorld.Domain.Models.Order", b =>
@@ -153,13 +132,6 @@ namespace PizzaWorld.Storage.Migrations
                         .HasForeignKey("OrderEntityId");
                 });
 
-            modelBuilder.Entity("PizzaWorld.Domain.Abstracts.AToppingModel", b =>
-                {
-                    b.HasOne("PizzaWorld.Domain.Abstracts.APizzaModel", null)
-                        .WithMany("Toppings")
-                        .HasForeignKey("APizzaModelEntityId");
-                });
-
             modelBuilder.Entity("PizzaWorld.Domain.Models.Order", b =>
                 {
                     b.HasOne("PizzaWorld.Domain.Models.Store", null)
@@ -178,11 +150,6 @@ namespace PizzaWorld.Storage.Migrations
                         .HasForeignKey("SelectedStoreEntityId");
 
                     b.Navigation("SelectedStore");
-                });
-
-            modelBuilder.Entity("PizzaWorld.Domain.Abstracts.APizzaModel", b =>
-                {
-                    b.Navigation("Toppings");
                 });
 
             modelBuilder.Entity("PizzaWorld.Domain.Models.Order", b =>

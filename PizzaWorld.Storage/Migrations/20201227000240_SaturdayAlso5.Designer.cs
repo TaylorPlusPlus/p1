@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaWorld.Storage;
 
 namespace PizzaWorld.Storage.Migrations
 {
     [DbContext(typeof(PizzaWorldContext))]
-    partial class PizzaWorldContextModelSnapshot : ModelSnapshot
+    [Migration("20201227000240_SaturdayAlso5")]
+    partial class SaturdayAlso5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace PizzaWorld.Storage.Migrations
 
                     b.HasIndex("OrderEntityId");
 
-                    b.ToTable("Pizzas");
+                    b.ToTable("APizzaModel");
                 });
 
             modelBuilder.Entity("PizzaWorld.Domain.Abstracts.AToppingModel", b =>
@@ -75,14 +77,14 @@ namespace PizzaWorld.Storage.Migrations
                     b.Property<long?>("StoreEntityId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("UserEntityId")
+                    b.Property<long?>("UserEntityId1")
                         .HasColumnType("bigint");
 
                     b.HasKey("EntityId");
 
                     b.HasIndex("StoreEntityId");
 
-                    b.HasIndex("UserEntityId");
+                    b.HasIndex("UserEntityId1");
 
                     b.ToTable("Order");
                 });
@@ -168,7 +170,7 @@ namespace PizzaWorld.Storage.Migrations
 
                     b.HasOne("PizzaWorld.Domain.Models.User", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserEntityId");
+                        .HasForeignKey("UserEntityId1");
                 });
 
             modelBuilder.Entity("PizzaWorld.Domain.Models.User", b =>

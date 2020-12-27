@@ -10,14 +10,19 @@ namespace PizzaWorld.Storage
         // what are we saving
         public DbSet<Store> Store { get; set;}   
         public DbSet<User> Users {get; set;}
-       // public DbSet<APizzaModel> Pizzas {get; set;}
 
-       // public DbSet<Order> Orders {get; set;}
+        // BIG CHANGE HEERE
+        public DbSet<Order> Order {get; set;}
+
+        public DbSet<APizzaModel> Pizzas {get; set;}
+
+     //   public DbSet<AToppingModel> AToppingModels{get;set;}
+
 
         //where is the database
         protected override void OnConfiguring(DbContextOptionsBuilder build)
         {
-            build.UseSqlServer("Server=taylorpizzaworldp0.database.windows.net,1433;Initial Catalog=pizzaworldDB;User ID=sqladmin;Password=bassnectar123!");
+            build.UseSqlServer("Server=taylorpizzaworldp0.database.windows.net,1433;Initial Catalog=pizzaworldDB;MultipleActiveResultSets=true;User ID=sqladmin;Password=bassnectar123!");
         }
 
         // are we normalized
@@ -27,6 +32,7 @@ namespace PizzaWorld.Storage
             build.Entity<User>().HasKey(e => e.EntityId);
             build.Entity<APizzaModel>().HasKey(e => e.EntityId);
             build.Entity<Order>().HasKey(e => e.EntityId);
+            build.Entity<AToppingModel>().HasKey(e => e.EntityId);
             
             SeedData(build);
 
