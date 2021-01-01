@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PizzaWorld.Domain.Abstracts;
 using PizzaWorld.Domain.Models;
 using PizzaWorld.Storage;
@@ -37,9 +38,6 @@ namespace PizzaWorld.Client
               return  _db.Users
                 .Where(u => u.Username == user.Username)
                 .SelectMany(u => u.Orders);
-            //return _db.Order;
-            
-            //_db.Users.FirstOrDefault(u => u.Username == user.Username).Orders;
         }
         public IEnumerable<APizzaModel> ReadPizzas(Order order)
         {
@@ -82,16 +80,28 @@ namespace PizzaWorld.Client
                 //NEED TO MAKE SURE THIS ONLY UPDATES IF IT IS ALREADY IN THE DATABASE!!!!
                 _db.Store.FirstOrDefault(s => s.Name == store.Name).Orders.Add(order);
                 _db.Users.FirstOrDefault(s => s.Username == user.Username).Orders.Add(order);
-                //_db.Store.Find(store).Orders.Add(order);
-               // _db.Users.Find(user).Orders.Add(order);
-       //     _db.Add(user);
-      //      _db.Add(store);
+
               _db.SaveChanges();
         }
 
         public void Update()
         {
             _db.SaveChanges();
+        }
+
+        public User UserOrderHistory(User user)
+        {
+            var u = _db.Users
+                        .Include(u => u.Orders)
+                        .ThenInclude(o => o.Pizzas)
+                        .ThenInclude(p => p.Toppings)
+                        .Include(u => u.Orders)
+                        .ThenInclude(o => o.Pizzas)
+                        .ThenInclude(p => p.Crust)
+                        .FirstOrDefault( u => u.EntityId == user.EntityId);
+            var o = u.Orders.LastOrDefault();
+    
+            return u; 
         }
 
     }

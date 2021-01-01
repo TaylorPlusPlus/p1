@@ -18,6 +18,7 @@ namespace PizzaWorld.Client
         {
             this._sql = _sql;
             this._client = _client;
+            //User = new User();
             UserView();
             
         }
@@ -36,7 +37,8 @@ namespace PizzaWorld.Client
             // Get the users order history
             //User = new User();
           
-              User = _sql.ReadOneUser("First");
+             User = _sql.ReadOneUser("First");
+             UpdateMainUSer();
               bool StillInSwitch = true;
               int UserInput;
             // list all the stores the user can choose from and allows user to choose a store
@@ -74,38 +76,24 @@ namespace PizzaWorld.Client
                   StillInSwitch = false;
                   break;
               }
-            }
-            //UserModifyOrder();
+            } 
+        }
 
-            //Adds the order to the users list of orders 
-            //TODO add functionality to save the users order
-            //CompleteOrder();
-
-            //ListOrderHistory();
-
-           // Order MostRecentOrder = user.SelectedStore.Orders.Last();
-
-           // user.Orders.Add(MostRecentOrder); 
-          //  MostRecentOrder.MakeMeatPizza();
-
-          //  Console.WriteLine(user.ToString());
-            
+        public void UpdateMainUSer()
+        {
+          User = _sql.UserOrderHistory(User);
         }
 
         //TODO this method needs to be broken up
         void UserModifyOrder()
         {
-            // Break this into a new method
             //checking an order exists
             if(CurrentOrder == null)
             {
-                // checking if user is allowed to make an order
-             //  if(UserCreateOrder() == false)
-             //  {
-             //      return;
-            //   }
-            //    
-                //the user doesn't have an order and is allowed to make one, thus an order is made
+              /*
+              TODO finish the create order function that adds checking features that restrict
+              order creation
+              */
                CurrentOrder = new Order();
             }
 
@@ -128,63 +116,27 @@ namespace PizzaWorld.Client
 
         void ListOrderHistory()
         {
-            //IEnumerable<Order> UsersHistory = _sql.ReadOrders(User);
-
-            //Add query for Pizza's with ordernumber
-
-            //Add a query for Toppings with PizzaModelEntityId
-
-            //Build the orders as they come
-
-             foreach(Order order in _sql.ReadOrders(User) )
+        
+           /*  foreach(Order order in _sql.ReadOrders(User) )
             {
-              //_sql.ReadPizzas(order);
-            } 
-
+             
+            }*/ 
             Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
-           // if(UsersHistory == null)
-           // {
-           //     Console.WriteLine("You do not have an order history");
-          //      return;
-          //  }else
-            {
+            
+             //User UserTest = _sql.UserOrderHistory(User);
+                //foreach(Order order in User.Orders)
                 foreach(Order order in User.Orders)
                 {
-                   foreach(APizzaModel pizza in _sql.ReadPizzas(order))
-                   {
-
-                     foreach(AToppingModel topping in _sql.ReadToppings(pizza))
-                    { 
-                      
-                    }
-                      
-                     foreach(ACrustModel crust in _sql.ReadCrust(pizza))
-                     {
-
-                     }
-                   }
-                   
-                    Console.WriteLine(order.ToString());
-                }
-            }
+                    Console.WriteLine(order.ToString());         
+                } 
+                  Console.WriteLine("User Order count = " + User.Orders.Count());
         }
         void CompleteOrder()
         {
-
-           // User.Orders.Add(CurrentOrder);
-            //User.SelectedStore.Orders.Add(CurrentOrder);
-        //    Console.WriteLine("Store : " + User.SelectedStore + " User: " + User.Username + " Order: " + CurrentOrder);
-            _sql.SaveOrder(User.SelectedStore, User, CurrentOrder);
-
-       
-
-        // update the users orders
-        //  User.Orders.Add(CurrentOrder);
-        //  User.SelectedStore.Orders.Add(CurrentOrder);
-            //TODO the following function
-         // user.SaveOrders();
-          // resetting the current order
-        CurrentOrder = null;
+         _sql.SaveOrder(User.SelectedStore, User, CurrentOrder);
+   //      User.Orders.Add(CurrentOrder);
+         CurrentOrder = null;
+         
         }
 
         void UserSelectStore()
@@ -230,7 +182,6 @@ namespace PizzaWorld.Client
           //TODO check from database or file when this user created their last order at this location
           double HoursSinceLastOrderCurrentLocation = 25;
           return HoursSinceLastOrderCurrentLocation;
-
         }
 
 
