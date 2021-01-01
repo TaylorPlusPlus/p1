@@ -47,9 +47,9 @@ namespace PizzaWorld.Client
 
             while(StillInSwitch)
             {
-              Console.WriteLine("1.Create or Modify an Order\n" +
-                                "2.Check out\n3.View Order History\n"+
-                                "4.Select a new Store\n5.Exit");
+              Console.WriteLine("1.Create and modify an order\n" +
+                                "2.View Order History\n"+
+                                "3.Select a new Store\n4.Exit");
               UserInput = int.Parse(Console.ReadLine());
               switch(UserInput)
               {
@@ -57,22 +57,13 @@ namespace PizzaWorld.Client
                 UserModifyOrder();
                 break;
                 case 2:
-                  if(CurrentOrder == null)
-                  {
-                    Console.WriteLine("You must first create an order before you can check out");
-                  }else
-                  {
-                  CompleteOrder();
-                  }
-                  break;
-                case 3:
                   ListOrderHistory();
                   break;
-                case 4:
+                case 3:
                   PrintAllStores();
                   UserSelectStore();
                   break;
-                case 5:
+                case 4:
                   StillInSwitch = false;
                   break;
               }
@@ -87,6 +78,9 @@ namespace PizzaWorld.Client
         //TODO this method needs to be broken up
         void UserModifyOrder()
         {
+          bool InOrderSwitch = true;
+          int UserOrderInput = 0;
+
             //checking an order exists
             if(CurrentOrder == null)
             {
@@ -96,8 +90,39 @@ namespace PizzaWorld.Client
               */
                CurrentOrder = new Order();
             }
+          while(InOrderSwitch){
 
-          Console.WriteLine("Select a Pizza add to your order\n1: Meat pizza\n2: Hawaiian pizza\n3: Greek pizza");
+              //Displaying menu + getting input
+              Console.WriteLine("\n\t1: Add pizza to your order" + 
+                                "\n\t2: Remove pizza from your order" +
+                                "\n\t3: Check out" +
+                                "\n\t4: Cancel order");
+              UserOrderInput = int.Parse(Console.ReadLine());
+              
+              switch(UserOrderInput)
+              {
+                case 1:
+                AddPizzaToOrder();
+                  break;
+                case 2:
+                RemovePizzaFromOrder();
+                  break;
+                case 3:
+                CompleteOrder();
+                InOrderSwitch = false;
+                  break;
+                case 4:
+                InOrderSwitch = false;
+                  break;
+
+              }
+          }
+       
+        }
+
+        void AddPizzaToOrder()
+        {
+           Console.WriteLine("Select a Pizza add to your order\n1: Meat pizza\n2: Hawaiian pizza\n3: Greek pizza");
           int.TryParse(Console.ReadLine(), out  int input);
 
           if(input == 1){
@@ -115,6 +140,36 @@ namespace PizzaWorld.Client
           //TODO And input validation
           //This Lets the user make whatever type of pizza they just ordered a large
           CurrentOrder.Pizzas.Last().MakeLarge();
+        }
+
+        void RemovePizzaFromOrder()
+        {
+          
+          string UsersOptions = "";
+          int PizzaIndex = 0;
+
+          if(CurrentOrder != null)
+          {
+            if(CurrentOrder.Pizzas.Count() == 0)
+            {
+              Console.WriteLine("---------------------------------------\n" +
+                                "You do not have any pizza in your order\n" +
+                                "---------------------------------------");
+              return;
+            }
+            UsersOptions += "---------------------------------\n";
+            for(int i = 1; i <= CurrentOrder.Pizzas.Count(); i ++)
+            {
+              UsersOptions += "\n" + i +". \n" + CurrentOrder.Pizzas.ElementAt(i - 1).ToString();
+            }
+            UsersOptions += "\nWhich pizza would you like to remove?\n";
+            UsersOptions += "-------------------------------------";
+            Console.WriteLine(UsersOptions);
+            PizzaIndex = int.Parse(Console.ReadLine());
+
+            CurrentOrder.Pizzas.RemoveAt(PizzaIndex - 1);
+
+          }
         }
 
         void ListOrderHistory()

@@ -96,7 +96,7 @@ namespace PizzaWorld.Domain.Abstracts
                     e.ToString();
                 }
                 
-                returnString += "\nPizza Cost: " + CalculateTotalCost();
+                returnString += "\nPizza Cost: " + CalculateTotalCost() + "\n";
             return returnString;
         }
 /*
