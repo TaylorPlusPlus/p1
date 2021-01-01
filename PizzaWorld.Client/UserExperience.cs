@@ -111,16 +111,17 @@ namespace PizzaWorld.Client
           if(input == 3){
             CurrentOrder.MakeGreekPizza();
           }
-    
+
+          //TODO And input validation
+          //This Lets the user make whatever type of pizza they just ordered a large
+          CurrentOrder.Pizzas.Last().MakeLarge();
         }
 
         void ListOrderHistory()
         {
-        
-           /*  foreach(Order order in _sql.ReadOrders(User) )
-            {
-             
-            }*/ 
+
+       //     UpdateMainUSer();
+
             Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
             
              //User UserTest = _sql.UserOrderHistory(User);

@@ -10,7 +10,7 @@ namespace PizzaWorld.Domain.Models
 
         private GenericPizzaFactory _pizzaFactory = new GenericPizzaFactory();
 
-        private double costOfOrder;
+      //  private double costOfOrder;
 
        //DELETE FOR DATABASE public List<APizzaModel> Pizzas {get; set;}
        public List<APizzaModel> Pizzas {get; set;}
@@ -26,6 +26,7 @@ namespace PizzaWorld.Domain.Models
 
         public override string ToString()
         {
+            
             string returnString = "Order number: " + EntityId + "\n";
             
             foreach(APizzaModel pizza in Pizzas)
@@ -45,7 +46,7 @@ namespace PizzaWorld.Domain.Models
 
             foreach(APizzaModel pizza in Pizzas)
            {
-                ReturnPrice += pizza.totalCost;
+                ReturnPrice += pizza.CalculateTotalCost();
             }
             return ReturnPrice;
         }

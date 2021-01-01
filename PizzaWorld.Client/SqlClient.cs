@@ -99,8 +99,7 @@ namespace PizzaWorld.Client
                         .ThenInclude(o => o.Pizzas)
                         .ThenInclude(p => p.Crust)
                         .FirstOrDefault( u => u.EntityId == user.EntityId);
-            var o = u.Orders.LastOrDefault();
-    
+           // var o = u.Orders.LastOrDefault();
             return u; 
         }
 
