@@ -16,6 +16,10 @@ namespace PizzaWorld.Domain.Models
                 topping.Make<PineApple>()
             };
         }
+        protected override void AddCrust()
+        {
+            Crust = crust.Make<OriginalCrust>();
+        }
     
     }
 }

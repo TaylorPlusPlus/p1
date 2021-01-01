@@ -7,7 +7,7 @@ namespace PizzaWorld.Domain.Abstracts
 
         // three fields
         public string Name { get; set;}
-        public string Price { get; set;}
+        public decimal Price { get; set;}
         //public List<S> Toppings{get; set;}
         // a constructor that calls the three methods to set the fields
        protected AToppingModel()

@@ -10,7 +10,7 @@ namespace PizzaWorld.Domain.Models
         }
         protected override void AddPrice()
         {
-            Price = "1.50";
+            Price = 1.50m;
         }
     }
 }

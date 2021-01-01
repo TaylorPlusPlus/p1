@@ -22,7 +22,8 @@ namespace PizzaWorld.Storage
         //where is the database
         protected override void OnConfiguring(DbContextOptionsBuilder build)
         {
-            build.UseSqlServer("Server=taylorpizzaworldp0.database.windows.net,1433;Initial Catalog=pizzaworldDB;MultipleActiveResultSets=true;User ID=sqladmin;Password=bassnectar123!");
+       //     build.UseSqlServer("Server=taylorpizzaworldp0.database.windows.net,1433;Initial Catalog=pizzaworldDB;MultipleActiveResultSets=true;User ID=sqladmin;Password=bassnectar123!");
+              build.UseSqlServer("Server=week2taylordb.database.windows.net,1433;Initial Catalog=project0db;MultipleActiveResultSets=true;User ID=sqladmin;Password=Password12345");
         }
 
         // are we normalized
@@ -33,6 +34,7 @@ namespace PizzaWorld.Storage
             build.Entity<APizzaModel>().HasKey(e => e.EntityId);
             build.Entity<Order>().HasKey(e => e.EntityId);
             build.Entity<AToppingModel>().HasKey(e => e.EntityId);
+            build.Entity<ACrustModel>().HasKey(e => e.EntityId);
             
             SeedData(build);
 

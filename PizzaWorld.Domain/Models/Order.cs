@@ -10,6 +10,8 @@ namespace PizzaWorld.Domain.Models
 
         private GenericPizzaFactory _pizzaFactory = new GenericPizzaFactory();
 
+        private double costOfOrder;
+
        //DELETE FOR DATABASE public List<APizzaModel> Pizzas {get; set;}
        public List<APizzaModel> Pizzas {get; set;}
         public bool completed = false;
@@ -31,9 +33,24 @@ namespace PizzaWorld.Domain.Models
                 returnString += pizza.ToString() + "\n";
             }
 
+            returnString += "Total Order Cost: " + CalculatePrice() + "\n";
+
             return returnString;
         }
-        /*
+
+
+        public decimal CalculatePrice()
+        {
+            decimal ReturnPrice = 0;
+
+            foreach(APizzaModel pizza in Pizzas)
+           {
+                ReturnPrice += pizza.totalCost;
+            }
+            return ReturnPrice;
+        }
+        
+/*
         public void MakePizza(string pizzaType)
         {
             Type type = Type.GetType(pizzaType);
@@ -44,7 +61,7 @@ namespace PizzaWorld.Domain.Models
                 Pizzas.Add(_pizzaFactory.Make<type>());
             }
         }
-            */
+            
 
         /*
         public void MakePizza(string pizzaType)
@@ -66,7 +83,7 @@ namespace PizzaWorld.Domain.Models
             {
                 Pizzas.Add(_pizzaFactory.Make<MeatPizza>());
             }
-            
+      
         }
 
          public void MakeHawaiianPizza()
@@ -77,7 +94,7 @@ namespace PizzaWorld.Domain.Models
                 Pizzas.Add(_pizzaFactory.Make<HawaiianPizza>());
             }
         }
-/*        
+        
         public void MakeGreekPizza()
         {
              //requirement: An order can only have 50 pizza's
@@ -86,8 +103,6 @@ namespace PizzaWorld.Domain.Models
                 Pizzas.Add(_pizzaFactory.Make<GreekPizza>());
             }
         }
-
-       // public MakeGreekPizza
-     */   
+   
     }
 }
