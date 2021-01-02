@@ -8,6 +8,8 @@ namespace PizzaWorld.Domain.Models
     {
         public List<Order> Orders {get; set;}
         public string Name {get; set;}
+
+     //   public int StoreId{get; set;}
         
         public Store()
         {
@@ -15,7 +17,7 @@ namespace PizzaWorld.Domain.Models
         }
         public void CreateOrder()
         {
-            Orders.Add(new Order());
+        //    Orders.Add(new Order());
             
         }
         bool DeleteOrder(Order Order)

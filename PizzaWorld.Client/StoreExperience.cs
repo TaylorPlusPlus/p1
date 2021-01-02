@@ -31,17 +31,12 @@ namespace PizzaWorld.Client
 
          void UserView()
         {
-            // Get the users order history
-            //User = new User();
-        
             PrintAllStores();
             UserSelectStore();
 
             bool StillInSwitch = true;
             int UserInput;
-            // list all the stores the user can choose from and allows user to choose a store
-            
-
+     
             while(StillInSwitch)
             {
               Console.WriteLine("1.View All Order History\n" +
@@ -51,7 +46,7 @@ namespace PizzaWorld.Client
               switch(UserInput)
               {
                 case 1:
-
+                  ListOrderHistory();
                   break;
                 case 2:
                  
@@ -68,33 +63,23 @@ namespace PizzaWorld.Client
 
       
         void ListOrderHistory()
+        {  
+          Console.WriteLine("ORDER HISTORY SIZE = " + Store.Orders.Count());
+          foreach(Order order in Store.Orders)
+            {
+              Console.WriteLine(order.ToString());         
+            }      
+        }
+
+        void ListOrderHistoryByUser()
         {
-             foreach(Order order in _sql.ReadOrders(Store) )
-            {
+          string customerName = "";
 
-            } 
+          Console.WriteLine("What is the Username of the Customer you would like to search by: ");
+          customerName = Console.ReadLine();
 
-            Console.WriteLine("ORDER HISTORY SIZE = " + Store.Orders.Count());
+          
 
-            {
-                foreach(Order order in Store.Orders)
-                {
-                   foreach(APizzaModel pizza in _sql.ReadPizzas(order))
-                   {
-
-                     foreach(AToppingModel topping in _sql.ReadToppings(pizza))
-                    { 
-                      
-                    }
-                      
-                     foreach(ACrustModel crust in _sql.ReadCrust(pizza))
-                     {
-
-                     }
-                   }    
-                    Console.WriteLine(order.ToString());
-                }
-            }
         }
        
 

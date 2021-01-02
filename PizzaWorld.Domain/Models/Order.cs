@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PizzaWorld.Domain.Abstracts;
 using PizzaWorld.Domain.Factories;
 
@@ -10,19 +11,19 @@ namespace PizzaWorld.Domain.Models
 
         private GenericPizzaFactory _pizzaFactory = new GenericPizzaFactory();
 
-      //  private double costOfOrder;
-
-       //DELETE FOR DATABASE public List<APizzaModel> Pizzas {get; set;}
        public List<APizzaModel> Pizzas {get; set;}
-        public bool completed = false;
-
-        //Pizzas need to be initialized
+/*
+       public long UserId{get;set;}
+       public User User {get; set;}
+       public long StoreId{get;set;}
+       public Store Store {get;set;}
+*/
 
         public Order()
         {
             Pizzas = new List<APizzaModel>();
-            //Pizzas = new List<MeatPizza>();
         }
+
 
         public override string ToString()
         {
@@ -51,58 +52,55 @@ namespace PizzaWorld.Domain.Models
             return ReturnPrice;
         }
         
-/*
-        public void MakePizza(string pizzaType)
-        {
-            Type type = Type.GetType(pizzaType);
-             //requirement: An order can only have 50 pizza's
-            if(Pizzas.Count <= 50)
-            {
-                
-                Pizzas.Add(_pizzaFactory.Make<type>());
-            }
-        }
-            
-
-        /*
-        public void MakePizza(string pizzaType)
-        {
-            Type type = Type.GetType(pizzaType);
-             //requirement: An order can only have 50 pizza's
-            if(Pizzas.Count <= 50)
-            {
-                
-                Pizzas.Add(_pizzaFactory.Make<type>());
-            }
-        }
-            */
-        
         public void MakeMeatPizza()
         {
             //requirement: An order can only have 50 pizza's
-            if(Pizzas.Count <= 50)
+            if(ValidateUnderPizzaLimit())
             {
                 Pizzas.Add(_pizzaFactory.Make<MeatPizza>());
             }
-      
+            ValidateUnderPriceLimit();
         }
 
          public void MakeHawaiianPizza()
         {
             //requirement: An order can only have 50 pizza's
-            if(Pizzas.Count <= 50)
+            if(ValidateUnderPizzaLimit())
             {
                 Pizzas.Add(_pizzaFactory.Make<HawaiianPizza>());
             }
+            ValidateUnderPriceLimit();
         }
         
         public void MakeGreekPizza()
         {
              //requirement: An order can only have 50 pizza's
-            if(Pizzas.Count <= 50)
+            if(ValidateUnderPizzaLimit())
             {
                 Pizzas.Add(_pizzaFactory.Make<GreekPizza>());
             }
+            ValidateUnderPriceLimit();
+        }
+        public bool ValidateUnderPizzaLimit()
+        {
+            // add this before
+            if(Pizzas.Count > 50)
+            {
+                Console.WriteLine("You already have the maximum 50 pizza's in your order");
+                return false;
+            }
+            return true;
+        }
+        public bool ValidateUnderPriceLimit()
+        {
+             // add this after the user has choosen their pizza
+            if(CalculatePrice() > 250.00m)
+            {
+                Console.WriteLine("Your order can not be more than $250");
+                Pizzas.Remove(Pizzas.Last());
+                return false;
+            }
+            return true;
         }
    
     }

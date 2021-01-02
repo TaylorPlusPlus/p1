@@ -9,5 +9,6 @@ namespace PizzaWorld.Domain.Abstracts
         { 
         //    EntityId = System.DateTime.Now.Ticks;
         }
+
     }
 }

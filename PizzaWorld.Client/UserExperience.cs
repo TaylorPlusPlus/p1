@@ -95,24 +95,28 @@ namespace PizzaWorld.Client
               //Displaying menu + getting input
               Console.WriteLine("\n\t1: Add pizza to your order" + 
                                 "\n\t2: Remove pizza from your order" +
-                                "\n\t3: Check out" +
-                                "\n\t4: Cancel order");
+                                "\n\t3: View current order" +
+                                "\n\t4: Check out" +
+                                "\n\t5: Cancel order");
               UserOrderInput = int.Parse(Console.ReadLine());
               
               switch(UserOrderInput)
               {
                 case 1:
-                AddPizzaToOrder();
+                  AddPizzaToOrder();
                   break;
                 case 2:
-                RemovePizzaFromOrder();
+                  RemovePizzaFromOrder();
                   break;
                 case 3:
-                CompleteOrder();
-                InOrderSwitch = false;
+                  ViewCurrentOrder();
                   break;
                 case 4:
-                InOrderSwitch = false;
+                  CompleteOrder();
+                  InOrderSwitch = false;
+                  break;
+                case 5:
+                  InOrderSwitch = false;
                   break;
 
               }
@@ -172,20 +176,20 @@ namespace PizzaWorld.Client
           }
         }
 
+        public void ViewCurrentOrder()
+        {
+          Console.WriteLine(CurrentOrder.ToString());
+        }
+
         void ListOrderHistory()
         {
 
-       //     UpdateMainUSer();
-
-            Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
-            
-             //User UserTest = _sql.UserOrderHistory(User);
-                //foreach(Order order in User.Orders)
-                foreach(Order order in User.Orders)
-                {
-                    Console.WriteLine(order.ToString());         
-                } 
-                  Console.WriteLine("User Order count = " + User.Orders.Count());
+          Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
+          foreach(Order order in User.Orders)
+            {
+              Console.WriteLine(order.ToString());         
+            } 
+          Console.WriteLine("User Order count = " + User.Orders.Count());
         }
         void CompleteOrder()
         {
@@ -209,7 +213,7 @@ namespace PizzaWorld.Client
           //Check if the user placed in order within the last 2 hours
           //Check if the user placed an order with this store within the last 24 hours
           if(TimeSinceOrder > 2 && TimeSinceOrderCurrentStore > 24){
-            User.SelectedStore.CreateOrder();
+      //      User.SelectedStore.CreateOrder();
             return true;
           }else{
             //Inform User why 
@@ -221,9 +225,8 @@ namespace PizzaWorld.Client
               Console.WriteLine("You have placed an order at this location within the last 24 hours");
             }
             return false;
-            
-          }
           
+          }     
         }
 
         //checks when the last order was made, returns minutes
