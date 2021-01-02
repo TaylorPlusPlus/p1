@@ -195,6 +195,7 @@ namespace PizzaWorld.Client
         }
         void CompleteOrder()
         {
+          CurrentOrder.PurchaseDate = DateTime.Now;
          _sql.SaveOrder(User.SelectedStore, User, CurrentOrder);
    //      User.Orders.Add(CurrentOrder);
          CurrentOrder = null;
