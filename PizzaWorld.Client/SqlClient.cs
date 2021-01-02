@@ -98,8 +98,23 @@ namespace PizzaWorld.Client
                         .Include(u => u.Orders)
                         .ThenInclude(o => o.Pizzas)
                         .ThenInclude(p => p.Crust)
+                        .Include(u => u.Orders)
+                        .ThenInclude(u => u.Store)
                         .FirstOrDefault( u => u.EntityId == user.EntityId);
-           // var o = u.Orders.LastOrDefault();
+            return u; 
+        }
+         public Store StoreOrderHistory(Store store)
+        {
+            var u = _db.Store
+                        .Include(u => u.Orders)
+                        .ThenInclude(o => o.Pizzas)
+                        .ThenInclude(p => p.Toppings)
+                        .Include(u => u.Orders)
+                        .ThenInclude(o => o.Pizzas)
+                        .ThenInclude(p => p.Crust)
+                        .Include(u => u.Orders)
+                        .ThenInclude(u => u.User)
+                        .FirstOrDefault( u => u.EntityId == store.EntityId);
             return u; 
         }
 

@@ -34,13 +34,15 @@ namespace PizzaWorld.Client
             PrintAllStores();
             UserSelectStore();
 
+            Store = _sql.StoreOrderHistory(Store);
+
             bool StillInSwitch = true;
             int UserInput;
      
             while(StillInSwitch)
             {
-              Console.WriteLine("1.View All Order History\n" +
-                                "2.View Order History by customer\n" +
+              Console.WriteLine("1.View all order history\n" +
+                                "2.View order history by customer\n" +
                                 "3.Sales history under construction\n4.Exit");
               UserInput = int.Parse(Console.ReadLine());
               switch(UserInput)
@@ -49,7 +51,7 @@ namespace PizzaWorld.Client
                   ListOrderHistory();
                   break;
                 case 2:
-                 
+                  ListOrderHistoryByUsername();
                   break;
                 case 3:
                   
@@ -67,19 +69,26 @@ namespace PizzaWorld.Client
           Console.WriteLine("ORDER HISTORY SIZE = " + Store.Orders.Count());
           foreach(Order order in Store.Orders)
             {
-              Console.WriteLine(order.ToString());         
+              Console.WriteLine(order.ToString());  
+        //      Console.WriteLine("This ORDERS USERS ID = " + order.User.EntityId + "\n\n");
+        //      Console.WriteLine("This ORDERS Username = " + order.User.Username + "\n\n");     
             }      
         }
 
-        void ListOrderHistoryByUser()
+        void ListOrderHistoryByUsername()
         {
           string customerName = "";
 
           Console.WriteLine("What is the Username of the Customer you would like to search by: ");
           customerName = Console.ReadLine();
 
-          
-
+          foreach(Order order in Store.Orders)
+          {
+            if(order.User.Username == customerName)
+            {
+              Console.WriteLine(order.ToString());
+            }
+          }
         }
        
 

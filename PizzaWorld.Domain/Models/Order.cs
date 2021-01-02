@@ -12,12 +12,14 @@ namespace PizzaWorld.Domain.Models
         private GenericPizzaFactory _pizzaFactory = new GenericPizzaFactory();
 
        public List<APizzaModel> Pizzas {get; set;}
-/*
-       public long UserId{get;set;}
+
+      // public long UserId{get;set;}
        public User User {get; set;}
-       public long StoreId{get;set;}
+      // public long StoreEntityId{get;set;}
        public Store Store {get;set;}
-*/
+
+       public DateTime PurchaseDate {get; set;}
+
 
         public Order()
         {
@@ -37,6 +39,10 @@ namespace PizzaWorld.Domain.Models
 
             returnString += "Total Order Cost: " + CalculatePrice() + "\n";
 
+            Console.WriteLine("This ORDERS USER IS " + Store.Name +"\n\n");
+            Console.WriteLine("This orders user ID = " + Store.EntityId +"\n\n");
+            Console.WriteLine("This ORDERS USER IS " + User.Username +"\n\n");
+            Console.WriteLine("This orders user ID = " + User.EntityId +"\n\n");
             return returnString;
         }
 

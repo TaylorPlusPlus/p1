@@ -89,6 +89,8 @@ namespace PizzaWorld.Client
               order creation
               */
                CurrentOrder = new Order();
+   //            CurrentOrder.UserEntityId = User.EntityId;
+    //           CurrentOrder.StoreEntityId = User.SelectedStore.EntityId;
             }
           while(InOrderSwitch){
 
