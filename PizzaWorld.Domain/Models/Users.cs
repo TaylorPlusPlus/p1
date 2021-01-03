@@ -37,10 +37,7 @@ namespace PizzaWorld.Domain.Models
             return $"I have selected this shore : {SelectedStore} and you ordered this pizzas: {sb}";
         }
 
-        public void PrintAllOrders()
-        {
-            
-        }
+        
 
         }
     }
