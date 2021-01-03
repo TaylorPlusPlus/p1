@@ -115,7 +115,7 @@ namespace PizzaWorld.Client
 
           while(ViewingOrderHistory)
           {
-            Console.WriteLine("1: All Order History\n2: Order history by customer\n3: go back");
+            Console.WriteLine("1: All Order History\n2: Order history by customer\n3: Go back");
             UserInput = int.Parse(Console.ReadLine());
 
             switch(UserInput)
