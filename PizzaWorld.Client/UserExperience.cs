@@ -81,17 +81,12 @@ namespace PizzaWorld.Client
           bool InOrderSwitch = true;
           int UserOrderInput = 0;
 
-            //checking an order exists
-            if(CurrentOrder == null)
-            {
-              /*
-              TODO finish the create order function that adds checking features that restrict
-              order creation
-              */
-               CurrentOrder = new Order();
-   //            CurrentOrder.UserEntityId = User.EntityId;
-    //           CurrentOrder.StoreEntityId = User.SelectedStore.EntityId;
-            }
+          if(!CreateNewOrder())
+          {
+            Console.WriteLine("\nCouldn't Create Order\n");
+            InOrderSwitch = false;
+          }
+
           while(InOrderSwitch){
 
               //Displaying menu + getting input
@@ -183,9 +178,9 @@ namespace PizzaWorld.Client
           Console.WriteLine(CurrentOrder.ToString());
         }
 
-        void ListOrderHistory()
+        public void ListOrderHistory()
         {
-
+          Console.WriteLine("Minutes Since Last ORder!! " + HoursSinceLastOrder() + " \n");
           Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
           foreach(Order order in User.Orders)
             {
@@ -193,7 +188,7 @@ namespace PizzaWorld.Client
             } 
           Console.WriteLine("User Order count = " + User.Orders.Count());
         }
-        void CompleteOrder()
+        public void CompleteOrder()
         {
           CurrentOrder.PurchaseDate = DateTime.Now;
          _sql.SaveOrder(User.SelectedStore, User, CurrentOrder);
@@ -202,48 +197,49 @@ namespace PizzaWorld.Client
          
         }
 
-        void UserSelectStore()
+        public void UserSelectStore()
         {
           User.SelectedStore = _client.SelectStore();
 
           Console.WriteLine($"Your current Store is {User.SelectedStore}");
         }
-        bool UserCreateOrder()
+  
+        public bool CreateNewOrder()
         {
-            
-        double TimeSinceOrder = HoursSinceLastOrder();
-          double TimeSinceOrderCurrentStore = HoursSinceLastOrderCurrentLocation();
-          //Check if the user placed in order within the last 2 hours
-          //Check if the user placed an order with this store within the last 24 hours
-          if(TimeSinceOrder > 2 && TimeSinceOrderCurrentStore > 24){
-      //      User.SelectedStore.CreateOrder();
-            return true;
-          }else{
-            //Inform User why 
-            if(TimeSinceOrder < 2 )
-            {
-              Console.WriteLine("You have placed an order within the last 2 hours");
-            }else
-            {
-              Console.WriteLine("You have placed an order at this location within the last 24 hours");
-            }
+          if(HoursSinceLastOrder() < 2)
+          {
+             Console.WriteLine("You have placed an order within the last 2 hours");
+             return false;
+          }
+          if(OrderedFromThisStoreWithin24hr())
+          {
+            Console.WriteLine("You have placed an order at this location within the last 24 hours");
             return false;
-          
-          }     
+          }
+          CurrentOrder = new Order();
+          CurrentOrder.User = User;
+          CurrentOrder.Store = User.SelectedStore;
+          return true;
         }
 
         //checks when the last order was made, returns minutes
-        double HoursSinceLastOrder()
-        {
-          //TODO check from database or file when this user created their last order
-          double HoursSinceLastOrder = 3;
-          return HoursSinceLastOrder;
+        public double HoursSinceLastOrder()
+        {    
+          return (DateTime.Now - User.Orders.Last().PurchaseDate).TotalHours;   
         }
-        double HoursSinceLastOrderCurrentLocation()
+        public bool OrderedFromThisStoreWithin24hr()
         {
-          //TODO check from database or file when this user created their last order at this location
-          double HoursSinceLastOrderCurrentLocation = 25;
-          return HoursSinceLastOrderCurrentLocation;
+          foreach(Order order in User.Orders)
+          {
+            if(order.Store.EntityId == User.SelectedStore.EntityId)
+            {
+              if((DateTime.Now - order.PurchaseDate).TotalHours < 24)
+              {
+                return true;
+              }
+            }
+          }
+          return false;
         }
 
 
