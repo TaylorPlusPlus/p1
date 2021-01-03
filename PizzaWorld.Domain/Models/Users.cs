@@ -15,11 +15,6 @@ namespace PizzaWorld.Domain.Models
 
         public string Username {get; set;}
 
-      //  public int UserId{get; set;}
-
-        /* each time a user is created, a new list of orders is created.
-            Eventually, this list should be gathered
-        */
         public User(){
 
             Orders = new List<Order>();
@@ -40,7 +35,7 @@ namespace PizzaWorld.Domain.Models
 
          public double HoursSinceLastOrder()
         {    
-          return (DateTime.Now - Orders.Last().PurchaseDate).TotalHours;   
+          return (DateTime.Now - Orders.Last().PurchaseDate).TotalHours;
         }
         public bool OrderedFromThisStoreWithin24hr()
         {
