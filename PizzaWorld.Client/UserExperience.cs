@@ -21,9 +21,7 @@ namespace PizzaWorld.Client
             //User = new User();
             UserView();
             
-        }
-
-        
+        } 
         void PrintAllStores()
         {
             foreach(var store in _client.Stores)
@@ -31,21 +29,18 @@ namespace PizzaWorld.Client
                 System.Console.WriteLine(store.Name);
             }
         }
-
          void UserView()
         {
-            // Get the users order history
-            //User = new User();
-          
-             User = _sql.ReadOneUser("First");
-             UpdateMainUSer();
-              bool StillInSwitch = true;
-              int UserInput;
-            // list all the stores the user can choose from and allows user to choose a store
-            PrintAllStores();
-            UserSelectStore();
+          User = _sql.ReadOneUser("First");
+          UpdateMainUSer();
+          bool StillInSwitch = true;
+          int UserInput;
 
-            while(StillInSwitch)
+          // list all the stores the user can choose from and allows user to choose a store
+          PrintAllStores();
+          UserSelectStore();
+
+          while(StillInSwitch)
             {
               Console.WriteLine("1.Create and modify an order\n" +
                                 "2.View Order History\n"+
@@ -57,7 +52,7 @@ namespace PizzaWorld.Client
                 UserModifyOrder();
                 break;
                 case 2:
-                  ListOrderHistory();
+                  User.ListOrderHistory();
                   break;
                 case 3:
                   PrintAllStores();
@@ -177,17 +172,6 @@ namespace PizzaWorld.Client
         {
           Console.WriteLine(CurrentOrder.ToString());
         }
-
-        public void ListOrderHistory()
-        {
-          Console.WriteLine("Minutes Since Last ORder!! " + HoursSinceLastOrder() + " \n");
-          Console.WriteLine("ORDER HISTORY SIZE = " + User.Orders.Count());
-          foreach(Order order in User.Orders)
-            {
-              Console.WriteLine(order.ToString());         
-            } 
-          Console.WriteLine("User Order count = " + User.Orders.Count());
-        }
         public void CompleteOrder()
         {
           CurrentOrder.PurchaseDate = DateTime.Now;
@@ -206,12 +190,12 @@ namespace PizzaWorld.Client
   
         public bool CreateNewOrder()
         {
-          if(HoursSinceLastOrder() < 2)
+          if(User.HoursSinceLastOrder() < 2)
           {
              Console.WriteLine("You have placed an order within the last 2 hours");
              return false;
           }
-          if(OrderedFromThisStoreWithin24hr())
+          if(User.OrderedFromThisStoreWithin24hr())
           {
             Console.WriteLine("You have placed an order at this location within the last 24 hours");
             return false;
@@ -221,27 +205,5 @@ namespace PizzaWorld.Client
           CurrentOrder.Store = User.SelectedStore;
           return true;
         }
-
-        //checks when the last order was made, returns minutes
-        public double HoursSinceLastOrder()
-        {    
-          return (DateTime.Now - User.Orders.Last().PurchaseDate).TotalHours;   
-        }
-        public bool OrderedFromThisStoreWithin24hr()
-        {
-          foreach(Order order in User.Orders)
-          {
-            if(order.Store.EntityId == User.SelectedStore.EntityId)
-            {
-              if((DateTime.Now - order.PurchaseDate).TotalHours < 24)
-              {
-                return true;
-              }
-            }
-          }
-          return false;
-        }
-
-
     }
 }
