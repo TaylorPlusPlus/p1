@@ -39,10 +39,6 @@ namespace PizzaWorld.Domain.Models
 
             returnString += "Total Order Cost: " + CalculatePrice() + "\n";
 
-            Console.WriteLine("This ORDERS USER IS " + Store.Name +"\n\n");
-            Console.WriteLine("This orders user ID = " + Store.EntityId +"\n\n");
-            Console.WriteLine("This ORDERS USER IS " + User.Username +"\n\n");
-            Console.WriteLine("This orders user ID = " + User.EntityId +"\n\n");
             return returnString;
         }
 

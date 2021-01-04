@@ -44,7 +44,10 @@ namespace PizzaWorld.Storage
                 {
                     new Store() {EntityId = 2, Name = "One"},
                     new Store() {EntityId = 3 , Name = "Two"},
-                    new Store() {EntityId = 4,Name = "Three"}
+                    new Store() {EntityId = 4,Name = "Three"},
+                    new Store() {EntityId = 5, Name = "Four"},
+                    new Store() {EntityId = 6, Name = "Five"},
+                    new Store() {EntityId = 7, Name = "Six"}
                 }
             );
 

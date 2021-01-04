@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaWorld.Storage;
 
 namespace PizzaWorld.Storage.Migrations
 {
     [DbContext(typeof(PizzaWorldContext))]
-    partial class PizzaWorldContextModelSnapshot : ModelSnapshot
+    [Migration("20210104215849_newStores")]
+    partial class newStores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,21 +141,6 @@ namespace PizzaWorld.Storage.Migrations
                         {
                             EntityId = 4L,
                             Name = "Three"
-                        },
-                        new
-                        {
-                            EntityId = 5L,
-                            Name = "Four"
-                        },
-                        new
-                        {
-                            EntityId = 6L,
-                            Name = "Five"
-                        },
-                        new
-                        {
-                            EntityId = 7L,
-                            Name = "Six"
                         });
                 });
 

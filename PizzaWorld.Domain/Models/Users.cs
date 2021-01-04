@@ -56,11 +56,11 @@ namespace PizzaWorld.Domain.Models
         {
 
           Console.WriteLine("ORDER HISTORY SIZE = " + Orders.Count());
+          
           foreach(Order order in Orders)
             {
               Console.WriteLine(order.ToString());         
-            } 
-          Console.WriteLine("User Order count = " + Orders.Count());
+            }
         }
 
 

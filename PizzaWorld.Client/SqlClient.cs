@@ -21,59 +21,11 @@ namespace PizzaWorld.Client
             return _db.Store;
         }
 
-        public IEnumerable<Order> ReadOrders(Store store)
-        {
-           // var s = ReadOneStore(store.Name);
-            //return s.Orders;
-            return  _db.Store
-                .Where(u => u.Name == store.Name)
-                .SelectMany(u => u.Orders);
-        }
-
-        //Test this
-        public IEnumerable<Order> ReadOrders(User user)
-        {    
-            _db.SaveChanges();
-        
-              return  _db.Users
-                .Where(u => u.Username == user.Username)
-                .SelectMany(u => u.Orders);
-        }
-        public IEnumerable<APizzaModel> ReadPizzas(Order order)
-        {
-            return _db.Order
-                .Where(u => u.EntityId == order.EntityId)
-                .SelectMany(u => u.Pizzas);
-        }
-        public IEnumerable<AToppingModel> ReadToppings(APizzaModel pizza)
-        {
-            return _db.Pizzas
-                .Where(u => u.EntityId == pizza.EntityId)
-                .SelectMany(u => u.Toppings);
-                
-        }
-        public IEnumerable<ACrustModel> ReadCrust(APizzaModel pizza)
-        {
-            return _db.Pizzas
-                .Where(u => u.EntityId == pizza.EntityId).Select(u => u.Crust);
-        }
-
-        public Store ReadOneStore(string name)
-        {
-            return _db.Store.FirstOrDefault(s => s.Name == name);
-        }
-
-
         // call this in user experience to set user
         public User ReadOneUser(string name)
         {
             return _db.Users.FirstOrDefault(s => s.Username == name);
         }        
-        public void SaveStore(Store store)
-        {
-            _db.Add(store); // git add
-            _db.SaveChanges(); // git commit
-        }
 
         public void SaveOrder(Store store, User user, Order order)
         {
@@ -84,10 +36,7 @@ namespace PizzaWorld.Client
               _db.SaveChanges();
         }
 
-        public void Update()
-        {
-            _db.SaveChanges();
-        }
+        
 
         public User UserOrderHistory(User user)
         {

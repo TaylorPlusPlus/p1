@@ -15,36 +15,14 @@ namespace PizzaWorld.Domain.Models
         {
             Orders = new List<Order>();
         }
-        public void CreateOrder()
-        {
-        //    Orders.Add(new Order());
-            
-        }
-        bool DeleteOrder(Order Order)
-        {
-            try
-            {
-                Orders.Remove(Order);
-                return true;
-            }catch{
-                return false;
-            }
-        }
 
-        public void PrintAllOrders()
+        public bool CheckIfOrderPlacedWithinWeek(Order order)
         {
-            foreach(Order order in Orders)
-            {
-                Console.WriteLine(order);
-
-            }
+          if((DateTime.Now - order.PurchaseDate).TotalDays < 7)
+          {
+            return true;
+          }
+          return false;
         }
-
-        public override string ToString()
-        {
-            return $"{Name}";
-        }
-        //Calculate Revenue
-
     }
 }

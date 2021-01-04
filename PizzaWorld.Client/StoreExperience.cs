@@ -67,7 +67,7 @@ namespace PizzaWorld.Client
           decimal[] MeatPizza = {0, 0};
           foreach(Order order in Store.Orders)
           {
-            if(CheckIfOrderPlacedWithinWeek(order))
+            if(Store.CheckIfOrderPlacedWithinWeek(order))
             {
               foreach(APizzaModel pizza in order.Pizzas)
               {
@@ -98,16 +98,6 @@ namespace PizzaWorld.Client
                             "\nMeat Pizza: \n\tsale count: " + MeatPizza[0] + "\n\trevenue: " + MeatPizza[1] + "\n");
         }
 
-        public bool CheckIfOrderPlacedWithinWeek(Order order)
-        {
-          if((DateTime.Now - order.PurchaseDate).TotalDays < 7)
-          {
-            return true;
-          }
-          return false;
-        }
-
-
         public void OrderHistoryLoop()
         {
           bool ViewingOrderHistory = true;
@@ -115,7 +105,7 @@ namespace PizzaWorld.Client
 
           while(ViewingOrderHistory)
           {
-            Console.WriteLine("1: All Order History\n2: Order history by customer\n3: Go back");
+            Console.WriteLine("\t1: All Order History\n\t2: Order history by customer\n\t3: Go back");
             UserInput = int.Parse(Console.ReadLine());
 
             switch(UserInput)
@@ -133,18 +123,16 @@ namespace PizzaWorld.Client
           }
         }
       
-        void ListOrderHistory()
+        public void ListOrderHistory()
         {  
           Console.WriteLine("ORDER HISTORY SIZE = " + Store.Orders.Count());
           foreach(Order order in Store.Orders)
             {
-              Console.WriteLine(order.ToString());  
-        //      Console.WriteLine("This ORDERS USERS ID = " + order.User.EntityId + "\n\n");
-        //      Console.WriteLine("This ORDERS Username = " + order.User.Username + "\n\n");     
+              Console.WriteLine(order.ToString());     
             }      
         }
 
-        void ListOrderHistoryByUsername()
+        public void ListOrderHistoryByUsername()
         {
           string customerName = "";
 
@@ -161,7 +149,7 @@ namespace PizzaWorld.Client
         }
        
 
-        void UserSelectStore()
+        public void UserSelectStore()
         {
           Store = _client.SelectStore();
 

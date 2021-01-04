@@ -18,7 +18,6 @@ namespace PizzaWorld.Client
         {
             this._sql = _sql;
             this._client = _client;
-            //User = new User();
             UserView();
             
         } 
@@ -70,7 +69,6 @@ namespace PizzaWorld.Client
           User = _sql.UserOrderHistory(User);
         }
 
-        //TODO this method needs to be broken up
         void UserModifyOrder()
         {
           bool InOrderSwitch = true;
@@ -118,7 +116,7 @@ namespace PizzaWorld.Client
 
         void AddPizzaToOrder()
         {
-           Console.WriteLine("Select a Pizza add to your order\n1: Meat pizza\n2: Hawaiian pizza\n3: Greek pizza");
+           Console.WriteLine("\t\tSelect a Pizza add to your order\n\t\t1: Meat pizza\n\t\t2: Hawaiian pizza\n\t\t3: Greek pizza");
           int.TryParse(Console.ReadLine(), out  int input);
 
           if(input == 1){
@@ -132,8 +130,6 @@ namespace PizzaWorld.Client
           if(input == 3){
             CurrentOrder.MakeGreekPizza();
           }
-
-          //TODO And input validation
           //This Lets the user make whatever type of pizza they just ordered a large
           CurrentOrder.Pizzas.Last().MakeLarge();
         }
@@ -185,7 +181,7 @@ namespace PizzaWorld.Client
         {
           User.SelectedStore = _client.SelectStore();
 
-          Console.WriteLine($"Your current Store is {User.SelectedStore}");
+          Console.WriteLine($"Your current Store is {User.SelectedStore.Name}");
         }
   
         public bool CreateNewOrder()
