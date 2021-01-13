@@ -10,7 +10,7 @@ namespace PizzaWorld.Client
     public class SqlClient
     {
         private readonly PizzaWorldContext _db = new PizzaWorldContext();
-
+ 
         public SqlClient()
         {
            
@@ -29,11 +29,11 @@ namespace PizzaWorld.Client
 
         public void SaveOrder(Store store, User user, Order order)
         {
-                //NEED TO MAKE SURE THIS ONLY UPDATES IF IT IS ALREADY IN THE DATABASE!!!!
-                _db.Store.FirstOrDefault(s => s.Name == store.Name).Orders.Add(order);
-                _db.Users.FirstOrDefault(s => s.Username == user.Username).Orders.Add(order);
+            //NEED TO MAKE SURE THIS ONLY UPDATES IF IT IS ALREADY IN THE DATABASE!!!!
+            _db.Store.FirstOrDefault(s => s.Name == store.Name).Orders.Add(order);
+            _db.Users.FirstOrDefault(s => s.Username == user.Username).Orders.Add(order);
 
-              _db.SaveChanges();
+            _db.SaveChanges();
         }
 
         
@@ -66,6 +66,5 @@ namespace PizzaWorld.Client
                         .FirstOrDefault( u => u.EntityId == store.EntityId);
             return u; 
         }
-
     }
 }
