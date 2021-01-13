@@ -30,7 +30,7 @@ namespace PizzaBox.WebClient.Controllers
         _ctx.Order.Add(order);
         _ctx.SaveChanges();
 
-        return View("OrderPlaced");
+        return View("SuccessfulOrder", model);
       }
 
       return View("home", model);
