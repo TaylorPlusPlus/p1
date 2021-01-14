@@ -12,5 +12,19 @@ namespace PizzaBox.WebClient.Models
 
     [Required]
     public string Store { get; set; }
+
+    public List<string> Pizzas {get; set;}
+
+    public List<string> SelectedPizzas {get; set;}
+
+    public OrderViewModel()
+    {
+      Pizzas = new List<string>();
+      Pizzas.Add("Hawaiian");
+      Pizzas.Add("Greek");
+      Pizzas.Add("Meat");
+      SelectedPizzas = new List<string>();
+    }
+    
   }
 }

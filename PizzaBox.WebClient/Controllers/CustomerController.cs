@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PizzaBox.WebClient.Models;
+using PizzaWorld.Domain.Models;
 using PizzaWorld.Storage;
 
 namespace PizzaBox.WebClient.Controllers
@@ -17,12 +18,17 @@ namespace PizzaBox.WebClient.Controllers
     [HttpGet]
     public IActionResult Home()
     {
-      var customer = new CustomerViewModel();
+      User user = _ctx.ReadOneUser("first");
+      user = _ctx.UserOrderHistory(user);
 
+      var customer = new CustomerViewModel();
       customer.Order = new OrderViewModel()
       {
         Stores = _ctx.GetStores()
       };
+      customer.OrderHistory = user.Orders;
+      
+
 
       return View("home", customer);
     }

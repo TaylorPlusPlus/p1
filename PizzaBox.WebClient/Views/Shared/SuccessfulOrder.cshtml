@@ -1,3 +1,12 @@
 @model PizzaBox.WebClient.Models.OrderViewModel
 
+
 <p>@Model.Store</p>
+
+
+  @foreach (var item in Model.SelectedPizzas)
+  {
+    <p>@item</p>
+  }
+  
+ 

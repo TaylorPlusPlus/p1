@@ -10,3 +10,12 @@
 </section>
 
 @Html.Partial("Order", Model.Order)
+
+<section>
+  <h1>Order History</h1>
+   @foreach (var item in Model.OrderHistory)
+  {
+    <p>@item</p>
+    
+  }
+</section>
