@@ -1,0 +1,10 @@
+@model PizzaBox.WebClient.Models.StoreViewModel
+
+<h2>Hello store @Model.Name</h2>
+
+<p>@Model.OrderHistory</p>
+
+<form asp-action="StoreHome" asp-controller="Store" asp-antiforgery="true" method="GET">
+  <input name = "Name" value = "@Model.Name" hidden = "true">
+  <button type="submit">Back</button>
+</form>

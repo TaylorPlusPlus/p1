@@ -19,7 +19,7 @@ namespace PizzaWorld.Storage
      //   public DbSet<AToppingModel> AToppingModels{get;set;}
 
         public PizzaWorldContext(DbContextOptions<PizzaWorldContext> options) : base(options) { }
-      //  public PizzaWorldContext(){}
+        public PizzaWorldContext(){}
 
         //Make console client work by adding parameterless constructor
 

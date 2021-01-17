@@ -27,9 +27,9 @@ namespace PizzaWorld.Client
             return _db.Users.FirstOrDefault(s => s.Username == name);
         }        
 
-         public User ReadOneStore(string name)
+         public Store ReadOneStore(string name)
         {
-            return _db.Store.FirstOrDefault(s => s.Username == name);
+            return _db.Store.FirstOrDefault(s => s.Name == name);
         } 
         public void SaveOrder(Store store, User user, Order order)
         {
