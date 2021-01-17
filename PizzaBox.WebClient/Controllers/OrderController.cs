@@ -12,6 +12,7 @@ namespace PizzaBox.WebClient.Controllers
   public class OrderController : Controller
   {
     private readonly PizzaBoxRepository _ctx;
+    GenericPizzaFactory factory = new GenericPizzaFactory();
     public OrderController(PizzaBoxRepository context)
     {
       _ctx = context;
@@ -23,7 +24,7 @@ namespace PizzaBox.WebClient.Controllers
     {
       if (ModelState.IsValid)
       {
-        GenericPizzaFactory factory = new GenericPizzaFactory();
+        
 
         var order = new Order();
         User user = new User();
@@ -60,6 +61,150 @@ namespace PizzaBox.WebClient.Controllers
       }
 
       return View("home", model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult AddingToOrderPut(OrderViewModel model)
+    {
+      
+
+        return View("SuccessfulOrder", model);
+      
+    }
+    [HttpGet]
+    public IActionResult AddingToOrderGet(OrderViewModel model)
+    {
+
+      return View("",model);
+    }
+
+    [HttpGet]
+    public IActionResult SelectAStore()
+    {
+      OrderViewModel model = new OrderViewModel();
+      model.Stores = _ctx.GetStores();
+      return View("SelectAStore", model);
+    }
+
+    [HttpPost]
+    public IActionResult ModifyOrder(OrderViewModel model)
+    {
+     
+     Order currentOrder = new Order();
+
+     for(int i = 0; i < model.SelectedPizzas.Count(); i ++)
+     {
+       string pizza = model.SelectedPizzas.ElementAt(i);
+       string size = model.SelectedSizes.ElementAt(i);
+        
+        
+          if(pizza.Equals("Hawaiian"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<HawaiianPizza>());
+          }
+          if(pizza.Equals("Meat"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<MeatPizza>());
+          }
+          if(pizza.Equals("Greek"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<GreekPizza>());
+          }
+          if(size == "Large")
+        {
+          currentOrder.Pizzas.Last().MakeLarge();
+        }
+     }
+     model.ViewOfOrder = currentOrder;
+
+      return View("ModifyOrder", model);
+    }
+
+    [HttpPost]
+    public IActionResult AddPizza(OrderViewModel model)
+    {
+      
+      return View("AddPizza", model);
+    }
+
+    [HttpPost]
+    public IActionResult RemovePizza(OrderViewModel model)
+    {
+      Console.WriteLine(model.RemoveIndex);
+      model.SelectedPizzas.RemoveAt(model.RemoveIndex);
+      model.SelectedSizes.RemoveAt(model.RemoveIndex);
+
+      Order currentOrder = new Order();
+
+      for(int i = 0; i < model.SelectedPizzas.Count(); i ++)
+     {
+       string pizza = model.SelectedPizzas.ElementAt(i);
+       string size = model.SelectedSizes.ElementAt(i);
+        
+        
+          if(pizza.Equals("Hawaiian"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<HawaiianPizza>());
+          }
+          if(pizza.Equals("Meat"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<MeatPizza>());
+          }
+          if(pizza.Equals("Greek"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<GreekPizza>());
+          }
+          if(size == "Large")
+        {
+          currentOrder.Pizzas.Last().MakeLarge();
+        }
+     }
+     model.ViewOfOrder = currentOrder;
+
+      return View("ModifyOrder", model);
+    }
+
+
+
+    [HttpPost]
+    public IActionResult CompleteOrder(OrderViewModel model)
+    {
+
+      Order currentOrder = new Order();
+      
+     for(int i = 0; i < model.SelectedPizzas.Count(); i ++)
+     {
+       string pizza = model.SelectedPizzas.ElementAt(i);
+       string size = model.SelectedSizes.ElementAt(i);
+        
+        
+          if(pizza.Equals("Hawaiian"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<HawaiianPizza>());
+          }
+          if(pizza.Equals("Meat"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<MeatPizza>());
+          }
+          if(pizza.Equals("Greek"))
+          {
+            currentOrder.Pizzas.Add(factory.Make<GreekPizza>());
+          }
+          if(size == "Large")
+        {
+          currentOrder.Pizzas.Last().MakeLarge();
+        }
+     }
+
+
+
+      Console.WriteLine(currentOrder.ToString());
+      if(currentOrder.Pizzas.Count() > 1)
+      {
+      _ctx.SaveOrder(_ctx.ReadOneStore(model.Store),_ctx.ReadOneUser("first"), currentOrder);
+      }
+      return View("SuccessfulOrder");
     }
   }
 }

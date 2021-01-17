@@ -28,9 +28,13 @@ namespace PizzaBox.WebClient.Controllers
       };
       customer.OrderHistory = user.Orders;
       
-
-
       return View("home", customer);
     }
+    [HttpGet]
+    public IActionResult Styles()
+    {
+      return View("styles");
+    }
+
   }
 }

@@ -1,0 +1,37 @@
+@model PizzaBox.WebClient.Models.OrderViewModel
+
+<p>Selected store = @Model.Store</p>
+<form asp-action="ModifyOrder" asp-controller="order" asp-antiforgery="true" method="POST">
+    
+  @foreach (var item in Model.Pizzas)
+  {
+    <input type="radio" asp-for="@Model.SelectedPizzas" value="@item" required = "true">
+    <label for="@item">@item</label>
+    <br>
+  }
+
+  @foreach(var item in Model.Sizes)
+  {
+    <input type="radio" asp-for="@Model.SelectedSizes" value="@item" required = "true">
+    <label for="@item">@item</label>
+ 
+  }
+
+  
+  @foreach (var item in Model.SelectedPizzas)
+  {
+    <input name = "SelectedPizzas" value = "@item" hidden = "true">
+  }
+
+  @foreach (var item in Model.SelectedSizes)
+  {
+    <input name = "SelectedSizes" value = "@item" hidden = "true">
+  }
+  
+  <input name="Store" value ="@Model.Store" hidden = "true">
+
+  <button type="submit">Add Pizza</button>
+</form>
+
+
+<!--This form -->

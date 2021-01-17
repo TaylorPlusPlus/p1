@@ -6,11 +6,16 @@
     <input type="radio" asp-for="@Model.Store" value="@item">
     <label for="@item">@item</label>
   }
+  
   @foreach (var item in Model.Pizzas)
   {
     <input type="checkbox" name="SelectedPizzas" value ="@item">
     <label for="@item">@item</label>
   }
 
-  <button type="submit">place order</button>
+  <button type="submit">NotValid</button>
+</form>
+
+<form asp-action="SelectAStore" asp-controller="order" asp-antiforgery="true" method="GET">
+  <button type ="submit">Create an Order</button>
 </form>

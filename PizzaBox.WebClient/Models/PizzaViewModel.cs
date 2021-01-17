@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 
-namespace PizzaBox.WebClient
+namespace PizzaBox.WebClient.Models
 {
-    class PizzaViewModel 
+    public class PizzaViewModel 
     {
         public string Name {get;set;}
-        public List<string> Toppings{get;set;}
+        public string Size {get;set;}
+
+        public PizzaViewModel(){}
         
     }
 }
