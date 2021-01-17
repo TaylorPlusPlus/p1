@@ -1,0 +1,79 @@
+@model PizzaBox.WebClient.Models.OrderViewModel
+
+<p>Selected store = @Model.Store</p>
+
+<p>List Of Pizza's In order</p>
+
+@for(int i = 0; i < Model.ViewOfOrder.Pizzas.Count(); i ++)
+{
+ <p>@Model.ViewOfOrder.Pizzas.ElementAt(i).ToString()</p>
+ <form asp-action="RemovePizza" asp-controller="order" asp-antiforgery = "true" method = "Post">
+        
+    @foreach (var item in Model.SelectedPizzas)
+    {
+    <input name="SelectedPizzas" value ="@item" hidden = "true">
+    }
+    @foreach (var item in Model.SelectedSizes)
+    {
+        <input name="SelectedSizes" value ="@item" hidden = "true">
+    }
+        <input name="Store" value ="@Model.Store" hidden = "true">
+        <input name="RemoveIndex" value = @i hidden = "true">
+        <button type = "submit">Remove</button>
+    </form>
+}
+
+
+
+
+<form asp-action="AddPizza" asp-controller="order" asp-antiforgery="true" method="POST">
+
+    @foreach (var item in Model.SelectedPizzas)
+  {
+    <p>@item</p>
+  }
+
+  @for(int i = 0; i < Model.SelectedPizzas.Count(); i ++)
+  {
+      <p>
+          @Model.SelectedPizzas.ElementAt(i)
+          @Model.SelectedSizes.ElementAt(i)
+      </p>
+  }
+
+  @foreach (var item in Model.SelectedPizzas)
+  {
+    <input name="SelectedPizzas" value ="@item" hidden = "true">
+  }
+  @foreach (var item in Model.SelectedSizes)
+  {
+    <input name="SelectedSizes" value ="@item" hidden = "true">
+  }
+
+    <input name="Store" value ="@Model.Store" hidden = "true">
+ 
+ 
+
+  <button type="submit">Add pizza</button>
+</form>
+
+
+
+<form asp-action="CompleteOrder" asp-controller="order" asp-antiforgery="true" method="POST">
+
+   @foreach (var item in Model.SelectedPizzas)
+  {
+    <input name="SelectedPizzas" value ="@item" hidden = "true">
+  }
+  @foreach (var item in Model.SelectedSizes)
+  {
+    <input name="SelectedSizes" value ="@item" hidden = "true">
+  }
+    <input name="Store" value ="@Model.Store" hidden = "true">
+    <button type="submit">Complete Order</button>
+</form>
+
+
+
+
+<button type="submit"> </button>

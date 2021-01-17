@@ -1,8 +1,7 @@
 @model PizzaBox.WebClient.Models.CustomerViewModel
 
 @{
-  ViewBag.Title = "Customer - Home";
-  Layout = "_CustomLayout";
+  Layout = "_Layout";
 }
 
 <section>
@@ -10,3 +9,12 @@
 </section>
 
 @Html.Partial("Order", Model.Order)
+
+<section>
+  <h1>Order History</h1>
+   @foreach (var item in Model.OrderHistory)
+  {
+    <p>@item</p>
+
+  }
+</section>

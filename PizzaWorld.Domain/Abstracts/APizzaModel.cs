@@ -29,12 +29,12 @@ namespace PizzaWorld.Domain.Abstracts
 
         public void MakeLarge()
         {
-            Console.WriteLine("Would you like to make this a Large Pizza? (Y/N)");
+         //   Console.WriteLine("Would you like to make this a Large Pizza? (Y/N)");
             
-            if(Console.ReadLine() == "Y")
-            {
-                Size = "Large";
-            }
+         //   if(Console.ReadLine() == "Y")
+        //    {
+         //       Size = "Large";
+         //   }
         }
         protected virtual void AddToppings(){}
 
