@@ -9,6 +9,7 @@ namespace PizzaBox.WebClient.Models
     public string Name { get; set; }
     public OrderViewModel Order { get; set; }
     public List<Order> OrderHistory {get; set;}
+    public string ErrorMessage {get;set;}
 
     public CustomerViewModel()
     {

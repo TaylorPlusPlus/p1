@@ -5,6 +5,7 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  margin: 0px 0px 0px 10px;
 }
 
 /* Provide sufficient contrast against white background */
@@ -61,11 +62,13 @@ button.accept-policy {
 html {
   position: relative;
   min-height: 100%;
+  background-image: url("../images/background+pizzas-01.jpg");
+  background-size: 400px 400px;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  background-image: url("../images/background+pizzas-01.jpg");
+  background-size: 400px 400px;
 }
 .footer {
   position: absolute;
@@ -74,3 +77,92 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+#spartanname{
+  float: left;
+  text-shadow: none;
+  color: #8C2232;
+  font-size: 30px;
+  font-family: Stencil Std, fantasy;
+}
+#spartanlogo{
+  float:left;
+  height:75;
+  width:75;
+}
+#spartanlogo2{
+  float:left;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  height:75;
+  width:75;
+}
+
+/*
+#mainbody{
+  padding-left: 20px;
+  height: 100%;
+}
+*/
+#mainContainer{
+  height:100%;
+ /* background-image: url("../images/background+pizzas-01.jpg");
+  background-size: 400px 400px;
+  */
+  width: 100%;
+  margin: 0px 0px 40px 0px;
+}
+.button{
+  border-radius: 5px;
+  width: 150px;
+  font-size: 20px;
+  border-color: #D1E7E0;
+  color:white;
+  background-color: #8C2232;
+  font-family: Stencil Std, fantasy;
+  margin: 15px 0px 0px 0px;
+ 
+
+}
+.button:hover{
+  background-color:#F3EED9;
+  color:  #8C2232;
+  border-color:#D1E7E0;
+}
+
+#pizzaPicture{
+  width: 100%;
+  background-image: url("../images/pizza-22.jpg");
+  background-size:350px;
+  text-align: center;
+  font-size: 33px;
+  color:white;
+  height: 200px;
+  text-shadow: 2px 2px #8C2232 ;
+}
+#pizzaPicture > p {
+  padding: 30px 0px 0px 0px;
+}
+
+h2{
+  color:#8C2232;
+}
+
+.outside{
+
+}
+.sidebyside{
+  float: left;
+}
+
+#rightbutton{
+  margin:15px 0px 0px 10px;
+}
+/*
+#mainBody {
+
+  margin-bottom: 60px;
+  min-height:100%;
+
+}
+
+*/

@@ -88,7 +88,7 @@ namespace PizzaWorld.Domain.Models
             // add this before
             if(Pizzas.Count > 50)
             {
-                Console.WriteLine("You already have the maximum 50 pizza's in your order");
+             //   Console.WriteLine("You already have the maximum 50 pizza's in your order");
                 return false;
             }
             return true;
@@ -98,7 +98,7 @@ namespace PizzaWorld.Domain.Models
              // add this after the user has choosen their pizza
             if(CalculatePrice() > 250.00m)
             {
-                Console.WriteLine("Your order can not be more than $250");
+            //   Console.WriteLine("Your order can not be more than $250");
                 Pizzas.Remove(Pizzas.Last());
                 return false;
             }

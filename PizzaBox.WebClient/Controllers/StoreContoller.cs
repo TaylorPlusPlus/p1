@@ -65,6 +65,7 @@ namespace PizzaBox.WebClient.Controllers
       Store store = _ctx.ReadOneStore(model.Name);
       store = _ctx.StoreOrderHistory(store);
       model.OrderHistory = store.SalesLoop();
+      model.MonthSales = store.SalesLoopMonth();
       
       return View("SalesSelection", model);
     }

@@ -30,11 +30,39 @@ namespace PizzaBox.WebClient.Controllers
       
       return View("home", customer);
     }
+   
     [HttpGet]
-    public IActionResult Styles()
+    public IActionResult RedirectHome()
     {
-      return View("styles");
+      User user = _ctx.ReadOneUser("first");
+      user = _ctx.UserOrderHistory(user);
+
+      var customer = new CustomerViewModel();
+      customer.Order = new OrderViewModel()
+      {
+        Stores = _ctx.GetStores()
+      };
+      customer.OrderHistory = user.Orders;
+      customer.ErrorMessage = "Orders can not occur more than once every two hours!";
+      return View("home", customer);
     }
 
+
+
+    [HttpGet]
+    public IActionResult RedirectHomeStoreSelection()
+    {
+      User user = _ctx.ReadOneUser("first");
+      user = _ctx.UserOrderHistory(user);
+
+      var customer = new CustomerViewModel();
+      customer.Order = new OrderViewModel()
+      {
+        Stores = _ctx.GetStores()
+      };
+      customer.OrderHistory = user.Orders;
+      customer.ErrorMessage = "You can't order from that store more than once in a 24 hour period!";
+      return View("home", customer);
+    }
   }
 }

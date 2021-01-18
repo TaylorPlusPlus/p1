@@ -28,6 +28,10 @@ namespace PizzaBox.WebClient.Models
 
     public int RemoveIndex {get;set;}
 
+    public decimal OrderPrice {get; set;}
+
+    public string ErrorMessage {get;set;}
+
     public OrderViewModel()
     {
       Pizzas = new List<string>();

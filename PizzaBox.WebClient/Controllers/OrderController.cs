@@ -82,16 +82,40 @@ namespace PizzaBox.WebClient.Controllers
     [HttpGet]
     public IActionResult SelectAStore()
     {
+      User user = _ctx.ReadOneUser("First");
+      user = _ctx.UserOrderHistory(user);
+      /*
+      if(user.HoursSinceLastOrder() < 2)
+      {
+        
+        return RedirectToAction("RedirectHome", "Customer");
+       
+      }
+      */
+     
       OrderViewModel model = new OrderViewModel();
       model.Stores = _ctx.GetStores();
       return View("SelectAStore", model);
     }
-
+  
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult ModifyOrder(OrderViewModel model)
     {
+     User user = _ctx.ReadOneUser("First");
+
+      user = _ctx.UserOrderHistory(user);
+      user.SelectedStore = _ctx.ReadOneStore(model.Store);
+      Order currentOrder = new Order();
+    
+      if(user.OrderedFromThisStoreWithin24hr())
+      {
+        
+        return RedirectToAction("RedirectHomeStoreSelection", "Customer");
+       
+      }
+      
      
-     Order currentOrder = new Order();
 
      for(int i = 0; i < model.SelectedPizzas.Count(); i ++)
      {
@@ -116,12 +140,25 @@ namespace PizzaBox.WebClient.Controllers
           currentOrder.Pizzas.Last().MakeLarge();
         }
      }
+     model.OrderPrice = currentOrder.CalculatePrice();
+     if(model.OrderPrice > 250m){
+       model.ErrorMessage = "Pizza Removed from order. Order can not be valued over $250.00";
+        currentOrder.Pizzas.RemoveAt(0);
+       model.SelectedPizzas.RemoveAt(0);
+     }
+     if(model.Pizzas.Count > 50){
+       model.ErrorMessage = "Pizza Removed from order. Each order is limited to 50 pizzas";
+       model.SelectedPizzas.RemoveAt(0);
+        currentOrder.Pizzas.RemoveAt(0);
+     }
      model.ViewOfOrder = currentOrder;
+     model.OrderPrice = currentOrder.CalculatePrice();
 
       return View("ModifyOrder", model);
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult AddPizza(OrderViewModel model)
     {
       
@@ -129,6 +166,7 @@ namespace PizzaBox.WebClient.Controllers
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult RemovePizza(OrderViewModel model)
     {
       Console.WriteLine(model.RemoveIndex);
@@ -160,7 +198,20 @@ namespace PizzaBox.WebClient.Controllers
           currentOrder.Pizzas.Last().MakeLarge();
         }
      }
+
+        model.OrderPrice = currentOrder.CalculatePrice();
+     if(model.OrderPrice > 250m){
+       model.ErrorMessage = "Pizza Removed from order. Order can not be valued over $250.00";
+        currentOrder.Pizzas.RemoveAt(0);
+       model.SelectedPizzas.RemoveAt(0);
+     }
+     if(model.Pizzas.Count > 50){
+       model.ErrorMessage = "Pizza Removed from order. Each order is limited to 50 pizzas";
+       model.SelectedPizzas.RemoveAt(0);
+        currentOrder.Pizzas.RemoveAt(0);
+     }
      model.ViewOfOrder = currentOrder;
+     model.OrderPrice = currentOrder.CalculatePrice();
 
       return View("ModifyOrder", model);
     }
@@ -197,14 +248,11 @@ namespace PizzaBox.WebClient.Controllers
         }
      }
 
-
-
-      Console.WriteLine(currentOrder.ToString());
-      if(currentOrder.Pizzas.Count() > 1)
-      {
-      _ctx.SaveOrder(_ctx.ReadOneStore(model.Store),_ctx.ReadOneUser("first"), currentOrder);
-      }
+      currentOrder.PurchaseDate = DateTime.Now;
+      
+      _ctx.SaveOrder(_ctx.ReadOneStore(model.Store),_ctx.ReadOneUser("First"), currentOrder);
+      
       return View("SuccessfulOrder");
-    }
   }
+}
 }

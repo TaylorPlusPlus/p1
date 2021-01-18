@@ -1,16 +1,21 @@
 @model PizzaBox.WebClient.Models.StoreViewModel
 
-<h2>Hello store @Model.Name</h2>
 
 <form asp-action="HistoryByUsername" asp-controller="Store" asp-antiforgery="true" method="POST">
-<label for ="username">Search by Username:</label>
+<h2>Search by Username:</h2>
 <input type = "text" name = "Username" placeholder="Username" required = "true">
 <input name = "Name" value = "@Model.Name" hidden = "true">
-<button type="submit">Search</button>
+<button type="submit" class ="button" >Search</button>
 </form>
-
+<br><br>
 <form asp-action="HistoryByAll" asp-controller="Store" asp-antiforgery="true" method="GET">
+  <h2>Search all Orders:</h2>
   <input name = "Name" value = "@Model.Name" hidden = "true">
-  <button type="submit">Search All</button>
+  <button type="submit" class ="button">Search All</button>
 </form>
+<br><br>
 
+<form asp-action="StoreHome" asp-controller="Store" asp-antiforgery="true" method="GET">
+  <input name = "Name" value = "@Model.Name" hidden = "true">
+  <button type="submit" class ="button" >Back</button>
+</form>

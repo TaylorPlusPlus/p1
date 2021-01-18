@@ -10,5 +10,7 @@ namespace PizzaBox.WebClient.Models
         public string Username {get;set;}
 
         public string OrderHistory{get;set;}
+
+        public string MonthSales{get;set;}
     }
 }

@@ -1,11 +1,8 @@
 @model PizzaBox.WebClient.Models.OrderViewModel
 
-<p>Selected store = @Model.Store</p>
-
-<p>List Of Pizza's In order</p>
-
 @for(int i = 0; i < Model.ViewOfOrder.Pizzas.Count(); i ++)
 {
+ <h5>@(i+1). @Model.SelectedPizzas.ElementAt(i)</h5>
  <p>@Model.ViewOfOrder.Pizzas.ElementAt(i).ToString()</p>
  <form asp-action="RemovePizza" asp-controller="order" asp-antiforgery = "true" method = "Post">
         
@@ -19,15 +16,27 @@
     }
         <input name="Store" value ="@Model.Store" hidden = "true">
         <input name="RemoveIndex" value = @i hidden = "true">
-        <button type = "submit">Remove</button>
+        <button type = "submit" class ="button" >Remove</button>
     </form>
+    <br>
+}
+
+@if(Model.OrderPrice > 0){
+  
+<section>
+  <br>
+  <h2>Order Price: $@Model.OrderPrice</h2>
+  <br>
+</section>
+}
+
+@if(Model.ErrorMessage != null){
+  <p>@Model.ErrorMessage</p>
 }
 
 
-
-
 <form asp-action="AddPizza" asp-controller="order" asp-antiforgery="true" method="POST">
-
+<!--
     @foreach (var item in Model.SelectedPizzas)
   {
     <p>@item</p>
@@ -40,7 +49,7 @@
           @Model.SelectedSizes.ElementAt(i)
       </p>
   }
-
+-->
   @foreach (var item in Model.SelectedPizzas)
   {
     <input name="SelectedPizzas" value ="@item" hidden = "true">
@@ -54,7 +63,7 @@
  
  
 
-  <button type="submit">Add pizza</button>
+  <button type="submit" class ="button" >Add pizza</button>
 </form>
 
 
@@ -70,14 +79,10 @@
     <input name="SelectedSizes" value ="@item" hidden = "true">
   }
     <input name="Store" value ="@Model.Store" hidden = "true">
-    <button type="submit">Complete Order</button>
+    <button type="submit" class ="button" >Complete Order</button>
 </form>
 
 <form asp-action="Home" asp-controller="Customer" method = "GET">
-    <button type="submit">Cancel Order</button>
+    <button type="submit" class ="button" >Cancel Order</button>
 </form>
 
-
-
-
-<button type="submit"> </button>

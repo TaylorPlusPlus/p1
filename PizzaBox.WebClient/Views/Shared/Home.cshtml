@@ -5,9 +5,19 @@
 }
 
 <section>
+  @if(Model.ErrorMessage != null)
+  {
+    <h3>Error: @Model.ErrorMessage</h3>
+  }
+</section>
+<section id = "pizzaPicture">
+<p>Order Pizza Today!</p>
+</section>
+<!--
+<section>
   @Model.Name
 </section>
-
+-->
 @Html.Partial("Order", Model.Order)
 
 <section>
@@ -18,3 +28,5 @@
 
   }
 </section>
+
+

@@ -1,5 +1,9 @@
 @model PizzaBox.WebClient.Models.OrderViewModel
 
 
-<p>Order Complete</p>
+<h2>Thank you for your order!</h2>
+<br>
+<form asp-action="Home" asp-controller="Customer" asp-antiforgery="true" method="GET">
+  <button type ="submit" class ="button">Home</button>
+</form>
  

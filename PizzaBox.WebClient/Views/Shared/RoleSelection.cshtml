@@ -1,11 +1,14 @@
 
-
-<h2>Select a Role:</h2><br>
-<form asp-action="ToStoreSelection" asp-controller="Store" asp-antiforgery="true" method="GET">
-
-  <button type="submit">Store</button>
-</form>
-
-<form asp-action="Home" asp-controller="Customer" asp-antiforgery="true" method="GET">
-  <button type ="submit">Customer</button>
-</form>
+<div class = "outside">
+  <h2>Are you customer or a store?</h2>
+  <div class = "sidebyside">
+    <form asp-action="ToStoreSelection" asp-controller="Store" asp-antiforgery="true" method="GET">
+      <button type="submit" class ="button">Store</button>
+    </form>
+  </div>
+  <div class = "sidebyside">
+    <form asp-action="Home" asp-controller="Customer" asp-antiforgery="true" method="GET">
+      <button type ="submit" class ="button" id = "rightbutton">Customer</button>
+    </form>
+  </div>
+</div>

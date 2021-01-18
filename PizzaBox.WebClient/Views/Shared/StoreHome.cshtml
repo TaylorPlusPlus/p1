@@ -1,14 +1,15 @@
 @model PizzaBox.WebClient.Models.StoreViewModel
 
-<h2>Hello store @Model.Name</h2>
 
+<h5>View Order History:</h5>
 <form asp-action="HistorySelection" asp-controller="Store" asp-antiforgery="true" method="GET">
 <input name = "Name" value = "@Model.Name" hidden = "true">
-  <button type="submit">View Order History</button>
+  <button type="submit" class ="button" >Order History</button>
 </form>
-
+<br>
+<h5>View Sales Report:</h5>
 <form asp-action="SalesSelection" asp-controller="Store" asp-antiforgery="true" method="GET">
   <input name = "Name" value = "@Model.Name" hidden = "true">
-  <button type="submit">View Weekly Sales Report</button>
+  <button type="submit" class ="button" >Sales Report</button>
 </form>
 
