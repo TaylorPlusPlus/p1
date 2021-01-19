@@ -55,7 +55,19 @@ namespace PizzaWorld.Domain.Models
           }
           return returnString;
         }
-
+        
+        public List<Order> ListofOrdersByUsername(string customerName)
+        {
+          List<Order> returnList = new List<Order>();
+           foreach(Order order in Orders)
+          {
+            if(order.User.Username.ToLower() == customerName.ToLower())
+            {
+              returnList.Add(order);
+            }
+          }
+          return returnList;
+        }
         public string SalesLoop()
         {
                                 //[count][revatue]
