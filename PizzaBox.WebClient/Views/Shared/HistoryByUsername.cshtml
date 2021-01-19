@@ -1,7 +1,15 @@
 @model PizzaBox.WebClient.Models.StoreViewModel
 
-<h3>User name @Model.Username</h3>
-<p>@Model.OrderHistory</p>
+<h2>User name: @Model.Username</h2>
+
+<h2>Order history:</h2><br>
+
+   @foreach (var item in Model.ListofOrders)
+  {
+    <p>@item</p>
+    <br>
+
+  }
 
 
 <form asp-action="StoreHome" asp-controller="Store" asp-antiforgery="true" method="GET">

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PizzaWorld.Domain.Models;
 
 namespace PizzaBox.WebClient.Models
 {
@@ -12,5 +13,7 @@ namespace PizzaBox.WebClient.Models
         public string OrderHistory{get;set;}
 
         public string MonthSales{get;set;}
+
+        public List<Order> ListofOrders{get; set;}
     }
 }

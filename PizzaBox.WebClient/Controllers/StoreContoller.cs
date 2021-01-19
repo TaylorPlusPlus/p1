@@ -45,7 +45,8 @@ namespace PizzaBox.WebClient.Controllers
     {
       Store store = _ctx.ReadOneStore(model.Name);
       store = _ctx.StoreOrderHistory(store);
-      model.OrderHistory = store.ListOrderHistoryByUsername(model.Username);
+    //  model.OrderHistory = store.ListOrderHistoryByUsername(model.Username);
+      model.ListofOrders = store.ListofOrdersByUsername(model.Username);
 
       return View("HistoryByUsername", model);
     }
@@ -55,6 +56,7 @@ namespace PizzaBox.WebClient.Controllers
       Store store = _ctx.ReadOneStore(model.Name);
       store = _ctx.StoreOrderHistory(store);
       model.OrderHistory = store.ListOrderHistory();
+      model.ListofOrders = store.Orders;
 
       return View("HistoryByAll", model);
     }
