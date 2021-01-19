@@ -84,14 +84,14 @@ namespace PizzaBox.WebClient.Controllers
     {
       User user = _ctx.ReadOneUser("First");
       user = _ctx.UserOrderHistory(user);
-      /*
+      
       if(user.HoursSinceLastOrder() < 2)
       {
         
         return RedirectToAction("RedirectHome", "Customer");
        
       }
-      */
+      
      
       OrderViewModel model = new OrderViewModel();
       model.Stores = _ctx.GetStores();
