@@ -1,5 +1,5 @@
-#Pizza World
-##Project Description
+# Pizza World
+## Project Description
 This project is a pizza ordering web application. The application can be used from either a store prospective, or a customer’s prospective.
 
 A customer can view their order history or choose a store to place a new order from. When placing a new order, a user can select from different premade pizza’s and different size options. If a customer is unhappy with one of their selections, they can remove it from their order before completion. 
@@ -7,7 +7,7 @@ A customer can view their order history or choose a store to place a new order f
 A store can view a sales report or view their order history. If a store is viewing their order history, they can either search by a specific user or search all orders place at their store. A store can view all sales from either the last week or the last month. 
 
 
-##Technologies Used
+## Technologies Used
 C# version 9
 .NET CORE version 3.1
 ADO.NET Entity Framework
@@ -19,7 +19,7 @@ CSS   version 3
 Bootstrap version 4.5.3
 
 
-##List of features ready and TODOs for future development
+## List of features ready and TODOs for future development
 
 A store can search their entire history for a specific customer, and view all purchases made by that customer. 
 
@@ -27,16 +27,16 @@ A store can view the past week and month's sales by specific pizza type.
 
 The application is designed to be viewed from an iPhone X 
 
-##To-do list:
+## To-do list:
 Implement a secure login
 Implement a secure payment system
 Create a responsive design
 Implement constant integration/deployment
 
-##Getting Started
+## Getting Started
 
 
-###Linux environment:
+### Linux environment:
 
 Download the .NET sdk by running the following commands
 
@@ -62,7 +62,7 @@ Run the application by running the following command
 
 dotnet run
 
-###Windows environment
+### Windows environment
 
 Download the .NET sdk by doing the following steps:
 
@@ -70,9 +70,13 @@ Go to https://dotnet.microsoft.com/download and select Download .NET Core SDK 3.
 
 In the windows terminal, parse to the PizzaBox.Webclient directory and run the command dotnet run
 
-##Usage
+## Usage
 Once the application is running, it will be accessed through any modern browser by going to the url http://localhost:5000
 
+The home screen should look like the following image: 
+![Screenshot (866)](https://user-images.githubusercontent.com/61916417/106538889-029e4e80-64cb-11eb-864c-d7344ce0523b.png)
+
+From here, you can continue from a stores perspective, or a customers perspective.
 
 
 License
