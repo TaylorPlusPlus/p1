@@ -76,7 +76,7 @@ Once the application is running, it will be accessed through any modern browser 
 The home screen should look like the following image: 
 ![Screenshot (866)](https://user-images.githubusercontent.com/61916417/106538889-029e4e80-64cb-11eb-864c-d7344ce0523b.png)
 
-From here, you can continue from a stores perspective, or a customers perspective.
+From here, you can continue from a store's perspective, or a customer's perspective.
 
 
 License
